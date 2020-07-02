@@ -1,0 +1,5004 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        * {
+            scrollbar-color: cyan rgba(255,255,255,0.5);
+            margin: 0px;
+            padding: 0px;
+            resize: none;
+        }
+        button {
+    width: 100px;
+    height: 30px;
+    color: white;
+    font-size: 15px;
+    border: 0px;
+    cursor: pointer;
+    
+        }
+        ::-webkit-scrollbar {
+  width: auto;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.5); 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: cyan; 
+}
+
+/* Handle on hover */
+
+            body, html {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            body {
+                    background: linear-gradient(to top right, #00ccff 0%, #66ff66 100%);
+                    font-family: Arial;
+                    text-align: center;
+            }
+            #contentdiv {
+                display: block;
+                margin: 0px;
+                margin-right: 50px;
+                overflow: auto;
+                width: auto;
+                height: 100%;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                position: relative;
+            }
+            #toolbar {
+                height: 100%;
+                position: absolute;
+                right: 0px;
+                width: 50px;
+                top: 0px;
+                background-color: white;
+                box-shadow: -9px 0px 5px 0px rgba(30,30,30,0.3);
+                overflow-y: auto;
+                overflow-x: hidden;
+                
+            }
+            .edit {
+                cursor: pointer;
+                border-radius: 50%;
+                border: 5px solid gray;
+                background-color: gray;
+                position: relative;
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                transform: rotate(-45deg);
+            }
+            .edit::before {
+                left: 25%;
+                position: absolute;
+                top: 0px;
+                display: inline-block;
+                width: 37.5%;
+                height: 25%;
+                background-color: lightgray;
+                content: "";
+            }
+            .edit::after {
+                position: absolute;
+                display: inline-block;
+                left: 37.5%;
+                width: 12.5%;
+                height: 87.5%;
+                background-color: lightgray;
+                content: "";
+            }
+            .edit2 {
+                left: 0px;
+                top: 0px;
+                position: absolute;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                transform: rotate(90deg);
+            }
+            .edit2::before {
+                left: 37.5%;
+                position: absolute;
+                top: 0px;
+                display: inline-block;
+                width: 12.5%;
+                height: 12.5%;
+                border-radius: 50%;
+                background-color: rgba(0,0,0,0);
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-left-width: 3px;
+                border: 5px solid lightgray;
+                border-top: 0px solid rgba(0,0,0,0);
+                border-bottom: 8px solid lightgray;
+                content: "";
+            }
+            .edit2::after {
+                position: absolute;
+                display: inline-block;
+                width: 12.5%;
+                height: 62.5%;
+                background-color: lightgray;
+                content: "";
+                bottom: 12.5%;
+                left: 50%;
+            }
+            
+            @keyframes usera {
+                0% {
+                    overflow: hidden;
+                    height: 0px;
+                }
+                
+                100% {
+                    height: 100%;
+                }
+            }
+            
+            #projectdiv {
+                /*animation: usera 1s;*/
+                position: absolute;
+                display: none;
+                left: 0px;
+                top: 0px;
+                right: 50px;
+                height: 100%;
+                background-color: lightgray;
+                overflow-y: auto;
+                overflow-x: hidden;
+                color: white;
+                z-index: 3;
+            }
+            .gbox {
+                position: relative;
+                display: inline-block;
+                width: 200px;
+                height: 200px;
+                background-color: white;
+                color: black;
+                margin: 20px;
+                padding: 10px;
+                float: center;
+                box-shadow: -5px 5px 8px 4px rgba(0,0,0,0.3);
+                overflow: hidden;
+                cursor: pointer;
+            }
+            
+            .gbox:hover {
+                animation: gboxzoom 0.5s;
+                width: 220px;
+                    height: 220px;
+                    margin: 10px;
+            }
+            
+            @keyframes gboxzoom {
+                0% {
+                    width: 200px;
+                    height: 200px;
+                    margin: 20px;
+                }
+                
+                100% {
+                    width: 220px;
+                    height: 220px;
+                    margin: 10px;
+                }
+            }
+            #closebutton {
+                display: none;
+                
+            }
+            
+        
+            .close {
+                
+                border-radius: 50%;
+                background-color: gray;
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                transform: rotate(-45deg);
+                cursor: pointer;
+            }
+            .close::after {
+                position: absolute;
+                display: inline-block;
+                left: 44%;
+                top: 14%;
+                width: 10%;
+                height: 70%;
+                background-color: lightgray;
+                content: "";
+            }
+            .close::before {
+                position: absolute;
+                display: inline-block;
+                left: 14%;
+                top: 44%;
+                width: 70%;
+                height: 10%;
+                background-color: lightgray;
+                content: "";
+            }
+            
+            
+            .med1 {
+                margin-right: 0px;
+                margin-left: auto;
+                display: inline-block;
+                position: absolute;
+                right: 7px;
+                bottom: 0px;
+                border: 2px solid black;
+                border-radius: 0px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                width: 10px;
+                height: 35px;
+                background: linear-gradient(to top, #00cc00 73%, rgba(0,0,0,0)73%)
+            }
+            
+            .heart{
+                display: inline-block;
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    width: 50px;
+    height: 50px;
+    float: left;
+}
+.heart:before,
+.heart:after{
+    display: inline-block;
+    position: absolute;
+    content: "";
+    left: 30px;
+    top: 0;
+    width: 30px;
+    height: 45px;
+    background: red;
+    border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+}
+.heart:after{
+    left: 0;
+            transform: rotate(45deg);
+            transform-origin :100% 100%;
+}
+.dcircle {
+    display: inline-block;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background-color: orange;
+    border: 50px solid midnightblue;
+    border-radius: 50%;
+}
+
+.building {
+    position: absolute;
+    display: inline-block;
+    width: 50px;
+    height: 100px;
+    background-color: lightblue;
+    bottom: 0px;
+    left: 5px;
+}
+
+.window {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: yellow;
+    margin: 5px;
+}
+
+.be {
+    display: inline-block;
+    width: 20px;
+    height: 120px;
+    border: 5px solid orange;
+    border-top: 0px;
+    border-bottom: 0px;
+    position: absolute;
+    right: 30px;
+    bottom: 0px;
+}
+
+.be2 {
+    display: inline-block;
+    height: 10px;
+    width: 120px;
+    border: 5px solid orange;
+    position: absolute;
+    right: 15px;
+    bottom: 120px;
+}
+
+.c1 {
+    transform: rotate(45deg);
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
+.c1::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    top: 0px;
+    left: 13px;
+    background-color: orange;
+}
+.c1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    top: 13px;
+    left: 0px;
+    background-color: orange;
+}
+.c2 {
+    transform: rotate(45deg);
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+.c2::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    top: 0px;
+    left: 9px;
+    background-color: orange;
+}
+.c2::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 9px;
+    left: 0px;
+    background-color: orange;
+}
+
+#liftbox {
+    position: absolute;
+    height: 5px;
+    width: 3px;
+    background-color: darkgray;
+    display: inline-block;
+    top: 15px; 
+    left: 5px;
+    animation: lifting 5s infinite;
+    animation-play-state: paused;
+}
+
+#liftbox::after {
+    content: "";
+    width: 40px;
+    height: 30px;
+    background-color: lightgray;
+    position: absolute;
+    bottom: -30px;
+    left: -18px;
+}
+
+@keyframes lifting {
+    0% {
+        height: 5px;
+    }
+    
+    50% {
+        height: 50px;
+    }
+    
+    100% {
+        height: 5px;
+    }
+}
+
+#searchdiv {
+    position: relative;
+    border-radius: 10px;
+    height: 50px;
+    background-color: darkgray;
+    margin: 30px;
+    padding: 0px;
+    z-index: 9;
+}
+
+#recommended {
+    background-color: #383838;
+    margin: 30px;
+    border-radius: 20px;
+    height: 400px;
+     box-shadow: 0 0 5px 5px inset rgba(0,0,0,0.3);
+}
+
+#search {
+    margin: 5px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: 0px;
+    font-size: 30px;
+    height: 40px;
+}
+
+.account {
+    cursor: pointer;
+   border-radius: 50%;
+    border: 5px solid gray;
+    background-color: gray;
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.account::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: -25px;
+    left: 0px;
+    background-color: lightgray;
+    border-radius: 50%;
+}
+.account::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 20px;
+    left: 10px;
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
+#editor {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: none;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 50px;
+    background: linear-gradient(to bottom left, #ff00ff 0%, #66ffff 100%);
+    
+}
+
+.menu1 {
+    background-color: #383838;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 10px;
+    font-size: 50px;
+    margin: 10px;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.8);
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 25px;
+    overflow: auto;
+    z-index: 10;
+}
+
+.cookie {
+    width: 50px;
+    height: 50px;
+    background-color: chocolate;
+    position: relative;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.cookie::after {
+    border-radius: 50%;
+    content: "";
+    border: 5px solid black;
+    border-bottom-color: rgba(0,0,0,0);
+    border-top-color: rgba(0,0,0,0);
+    width: 20px;
+    height: 3px;
+    position: absolute; 
+    left: 10px;
+    top: 20px;
+        transform: rotate(0deg);
+
+}
+.cookie::before {
+    border-radius: 50%;
+    content: "";
+    border: 5px solid black;
+    border-left-color: rgba(0,0,0,0);
+    border-right-color: rgba(0,0,0,0);
+    width: 3px;
+    height: 20px;
+    position: absolute; 
+    left: 15px;
+    top: 10px;
+    transform: rotate(45deg);
+}
+
+.cookie2 {
+    left: 0px;
+    top: 0px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0,0,0,0);
+    position: absolute;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+
+.cookie2::after {
+    border-radius: 50%;
+    content: "";
+    border: 5px solid black;
+    border-bottom-color: rgba(0,0,0,0);
+    border-top-color: rgba(0,0,0,0);
+    width: 30px;
+    height: 3px;
+    position: absolute; 
+    left: 5px;
+    top: 20px;
+        transform: rotate(75deg);
+
+}
+.cookie2::before {
+    border-radius: 50%;
+    content: "";
+    border: 5px solid black;
+    border-left-color: rgba(0,0,0,0);
+    border-right-color: rgba(0,0,0,0);
+    width: 3px;
+    height: 20px;
+    position: absolute; 
+    left: 25px;
+    top: 20px;
+    transform: rotate(-65deg);
+}
+
+.storage {
+    margin: 50px;
+    padding: 50px;
+    background-color: gray;
+    border-radius: 5px;
+}
+
+.accept {
+    width: auto;
+    height: 50px;
+    background-color: lime;
+    border-radius: 5px;
+    font-size: 40px;
+    color: white;
+    border: 0px;
+    margin: 50px;
+}
+
+#userdiv {
+    background-color: lightgray;
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    right: 50px;
+    animation: userappear 1s;
+    top: 0px;
+    box-shadow: -9px 0px 5px 0px rgba(0,0,0,0.3);
+    display: none;
+    overflow: auto;
+    z-index: 3;
+}
+
+#userdiv>div {
+    
+}
+
+
+
+@keyframes userappear {
+    0% {
+        overflow: hidden;
+        width: 0px;
+    }
+    100% {
+        width: 200px;
+        overflow: hidden
+    }
+}
+
+.search {
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: gray;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    transform: rotate(45deg);
+}
+
+.search::after {
+    display: inline-block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    background-color: rgba(0,0,0,0);
+    border-radius: 50%;
+    border: 2px solid lightgray;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+}
+
+.search::before {
+    display: inline-block;
+    content: "";
+    width: 15px;
+    height: 2px;
+    background-color: lightgray;
+    position: absolute;
+    left: 22px;
+    top: 18px;
+}
+
+#results {
+    display: none;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+    background-color: darkgray;
+    top: 50px;
+}
+
+#searchclose {
+    position: absolute;
+    right: 50px;
+    top: 5px;
+    border: 0px;
+    display: none;
+    cursor: pointer;
+}
+
+#newproject {
+    position: absolute;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    overflow: auto;
+    display: none;
+    z-index: 10;
+}
+
+#projectfiles {
+    display: inline-block;
+    padding: 0;
+    height: 90vh;
+    width: 150px;
+    background-color: ghostwhite;
+    position: relative;
+    overflow-y: auto;
+}
+
+#pfiles {
+    padding: 0px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.jflogo {
+    display: inline-block;
+    width: 30px;
+    height: 50px;
+    background-color: white;
+    position: relative;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    
+}
+
+.jflogo::after {
+    content: "";
+    width: 12px;
+    height: 45px;
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    right: -2px;
+    transform: rotate(10deg);
+    background-color: rgba(0,0,0,0);
+    border-top: 5px solid white;
+    border-right: 5px solid white;
+    border-radius: 5px;
+}
+
+.jflogo::before {
+    content: "";
+    width: 12px;
+    height: 50px;
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    left: -5px;
+    transform: rotate(-10deg);
+    background-color: white;
+    border-radius: 5px;
+}
+
+.jfjuice {
+    display: inline-block;
+    width: 20px;
+    left: 5px;
+    bottom: 5px;
+    height: 40px;
+    background-color: rgb(232,62,255);
+    position: absolute;
+}
+
+.jfjuice::after {
+    content: "";
+    width: 13px;
+    height: 40px;
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    right: -3px;
+    transform: rotate(10deg);
+    background-color: rgb(232,62,255);
+    border-radius: 5px;
+}
+
+.jfjuice::before {
+    content: "";
+    width: 12px;
+    height: 40px;
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    left: -5px;
+    transform: rotate(-10deg);
+    background-color: rgb(232,62,255);
+    border-radius: 5px;
+}
+
+.jfruit {
+    display: inline-block;
+    position: absolute;
+    height: 30px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(232,62,255);
+    top: -40px;
+    left: 10px;
+}
+
+.jfruit::after {
+    content: "";
+    transform: rotate(45deg);
+    border: 5px solid green;
+    border-left-color: rgba(0,0,0,0);
+    border-top-color: rgba(0,0,0,0);
+    position: absolute;
+    height: 7px;
+    width: 7px;
+    top: -17px;
+    left: 2px;
+}
+
+.jfruit::before {
+    content: "";
+    border: 5px solid black;
+    border-right-color: rgba(0,0,0,0);
+    border-bottom-color: rgba(0,0,0,0);
+    border-bottom: 0px;
+    border-right: 0px;
+    border-top-left-radius: 2px;
+    position: absolute;
+    height: 7px;
+    width: 7px;
+    top: 10px;
+    left: -10px;
+}
+
+#myprojects {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #383838;
+    margin: 30px;
+    border-radius: 20px;
+    height: 400px;
+    display: none;
+    box-shadow: 0 0 5px 5px inset rgba(0,0,0,0.3);
+}
+#downprojects {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #383838;
+    margin: 30px;
+    border-radius: 20px;
+    height: 400px;
+    display: none;
+    box-shadow: 0 0 5px 5px inset rgba(0,0,0,0.3);
+}
+
+
+.project {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    background-color: darkgray;
+    font-size: 15px;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    margin: 20px;
+     box-shadow: 0 0 5px 3px rgba(0,0,0,0.3);
+}
+.project>span {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    z-index: 1;
+}
+
+.project>.editbutton {
+    width: auto;
+    height: auto;
+}
+
+.project>div {
+    font-size: 16px;
+}
+
+.editproject::before {
+    border-width: 3px;
+    border-top-width: 0px;
+}
+
+.editbutton {
+    position: absolute; top: 5px; left: 5px; text-align: left; font-size: 30px; color: lightgray; width: auto; height: auto; 
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    
+}
+
+
+
+.filetype {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer; 
+    float: left;
+    margin: 10px;
+}
+
+#fileedit {
+    display: inline-block;
+    width: 40vw;
+    height: 90vh;
+    position: relative;
+}
+#fileedit2 {
+    background-color: #383838;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    padding: 0px;
+    overflow: auto;
+}
+
+#fileeditor {
+    line-height: 1;
+    padding: 0px;
+    position: absolute;
+    top: 10%;
+    left: 0px;
+    width: 100%;
+    height: 90%;
+    border: 0px;
+    background-color: rgba(0,0,0,0);
+    color: rgba(0,0,0,0);
+    font-family: Courier;
+    font-size: 15px;
+    caret-color: white;
+    -moz-tab-size: 4; /* Firefox */
+    -o-tab-size: 4; /* Opera 10.6-12.1 */
+    tab-size: 4;
+    white-space: pre;
+}
+
+#edittools {
+    background-color: gray;
+    height: 10%;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+#edittools>button {
+    width: auto;
+    height: 100%;
+    
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+#pfiles>input {
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    border-bottom: 1px solid black;
+    margin: 0px;
+    width: 148px;
+    height: 20px;
+    font-size: 15px;
+    border-radius: 0px;
+}
+
+#musiceditor {
+    height: 90%;
+    width: 100%;
+    position: relative;
+    display: none;
+    overflow: auto;
+    margin: 0px;
+}
+
+.musicline {
+    width: 95%;
+    margin: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    background-color: lightgray;
+    height: 50px;
+    position: relative;
+    
+}
+
+#timebar {
+    width: 3px;
+    background-color: red;
+    height: 100%;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+}
+
+#piano {
+    position: absolute;
+    left: 50px;
+    height: 300px;
+    bottom: 5%;
+    right: 50px;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 9;
+    padding 0px;
+    overflow: hidden;
+    max-height: 90%;
+    display: none;
+}
+
+.key {
+    user-select: none;
+    display: inline-block;
+    width: 5.8%;
+    height: 100%;
+    margin: 0px;
+    background-color: white;
+    position: relative;
+    box-shadow: inset 0px 0px 0px 1px black;
+    vertical-align: text-bottom;
+    min-width: 50px;
+    color: black;
+}
+
+.blackkey {
+    user-select: none;
+    display: inline-block;
+    position: absolute;
+    width: 40%;
+    top: 0px;
+    left: -20%;
+    height: 50%;
+    background-color: black;
+    color: white;
+}
+
+
+#fileditor {
+    line-height: 1;
+    position: absolute;
+    top: 10%;
+    left: 0px;
+    height: 90%;
+    width: 100%;
+    display: none;
+    text-align: left;
+    font-family: courier;
+    font-size: 15px;
+    color: white;
+    padding: 0px;
+    overflow: auto;
+    word-break: break-word;
+    caret-color: white;
+    -moz-tab-size: 4; /* Firefox */
+    -o-tab-size: 4; /* Opera 10.6-12.1 */
+    tab-size: 4;
+    color: white;
+}
+
+#preview {
+    display: inline-block;
+    padding: 0;
+    height: 90vh;
+    width: 40vw;
+    background-color: #383838;
+    position: relative;
+    overflow-y: auto;
+}
+
+#previewdiv {
+    padding: 0px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    text-align: left;
+    padding: 0;
+    overflow: hidden;
+}
+
+#testframe {
+    width: 40vw;
+    height: 90vh;
+    border: 0;
+    margin: 0px;
+}
+
+#photoeditor {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height: 100%;
+    
+    display: none;
+}
+
+
+.headphones {
+    position: relative;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 0;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border: 5px solid black;
+    border-bottom: 0;
+}
+
+.headphones::after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    left: -15px;
+    width: 0px;
+    height: 0px;
+    border: 10px solid black;
+    border-radius: 0px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    
+}
+
+.headphones::before {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    bottom: 0px;
+    right: -15px;
+    width: 0px;
+    height: 0px;
+    border: 10px solid black;
+    border-radius: 0px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    
+}
+
+.painting {
+    width: 100px;
+    height: 80px;
+    border: 10px solid peru;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.5) inset;
+    background-color: white;
+    border-bottom-color: sienna;
+    border-top-color: sienna;
+    
+}
+
+#colors {
+    width: 210px;
+    max-width: 100%;
+    height: 210px;
+    max-width: 100%;
+    margin: 20px;
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#colors>span {
+    display: inline-block;
+   width: 24px;
+    height: 24px;
+    border: 3px solid white;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: green;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.3) inset, 0px 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+#colors>span:hover {
+    animation: 0.3s colorhover;
+    border: 3px solid black;
+    width: 24px;
+    height: 24px;
+}
+
+@keyframes colorhover {
+    0% {
+      width: 24px;
+    height: 24px;
+    border: 3px solid white;
+    }
+    
+    100% {
+        
+    width: 24px;
+    height: 24px;
+    border: 3px solid black;
+    }
+}
+
+#colors>h2 {
+    margin: 0;
+}
+
+#colors>h1 {
+    margin: 0;
+}
+
+#size {
+   width: 210px;
+   height: 210px;
+   background-color: white;
+   margin: 20px;
+   text-align: center;
+   
+}
+
+#size>span {
+    display: inline-block;
+    width: 200px;
+    margin: 0px;
+    height: 50px;
+    border: 2px solid gray;
+    position: relative;
+    
+}
+
+#size>h1 {
+    margin: 0px;
+}
+#size>span>span {
+    display: inline-block;
+   margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+    width: 190px;
+    height: 5px;
+    background-color: gray;
+}
+
+#size>span:first-of-type>span {
+    background-color: black;
+}
+
+#size>span:nth-child(3)>span {
+    display: inline-block;
+   margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+    width: 190px;
+    height: 5px;
+    background-color: black;
+}
+
+#size>span:nth-shild(3) {
+    border-color: black;
+}
+
+#size>span:nth-child(2)>span {
+    display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0,0,0,0);
+    border: 5px solid black;
+    border-bottom: 0px;
+    border-right: 0px;
+}
+
+#size>span:nth-child(4)>span {
+    display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%) rotate(45deg);
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0,0,0,0);
+    border: 5px solid black;
+    border-top: 0px;
+    border-left: 0px;
+}
+
+#painttools>span:nth-child(1) {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    height: 500px;
+}
+
+#painttools>span:nth-child(1)>div {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+    width: 250px;
+    height: 500px;
+}
+
+#painttools>span:nth-child(2) {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    height: 500px;
+}
+
+
+#paintadd {
+    background-color: white;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 210px;
+    height: 460px;
+}
+
+.bucket {
+   display: inline-block;
+   height: 30px;
+   width: 30px;
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   background-color: gray;
+   position: relative;
+   
+}
+
+.bucket::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: -7px;
+    left: -1px;
+    width: 26px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid gray;
+    background-color: green;
+}
+
+.bucket::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: -15px;
+    left: -3px;
+    width: 30px;
+    height: 20px;
+    border-radius: 50% 50% 0 0;
+    border: 3px solid lightgray;
+    border-bottom: 0px;
+}
+
+.brush {
+    display: inline-block;
+    width: 5px;
+    height: 40px;
+    position: relative;
+    background-color: peru;
+    transform: rotate(-30deg);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.brush::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 5px 5px 5px 0;
+    position: absolute;
+    bottom: -7px;
+    left: -2px;
+    background-color: navajowhite;
+    transform: rotate(-45deg);
+}
+
+.gradient1 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.3);
+    border-radius: 5px;
+     background: rgb(140,30,223);
+background: linear-gradient(38deg, rgba(140,30,223,1) 0%, rgba(0,249,246,1) 100%); 
+}
+
+.square {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 4px solid black;
+    margin: 7px;
+    box-shadow: 5px 5px 0px 0px pink, -5px 5px 0px 0px orange, -5px -5px 0px 0px red, 5px -5px 0px 0px green, 0px 0px 10px 8px rgba(0,0,0,0.4);
+}
+
+#gradientgenerator {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px 8px rgba(0,0,0,0.4);
+    padding: 0px;
+    display: none;
+}
+
+#gradientgenerator>span {
+    display: inline-block;
+   width: 24px;
+    height: 24px;
+    border: 3px solid white;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: green;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.3) inset, 0px 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+#gradientgenerator>span:hover {
+    animation: 0.3s colorhover;
+    border: 3px solid black;
+    width: 24px;
+    height: 24px;   
+}
+
+#previewgradient {
+    width: 100%;
+    height: 75px;
+    margin: 0px;
+}
+
+
+#gradientgenerator>button {
+    width: 160px;
+    height: 30px;
+    background: linear-gradient(45deg, blue, cyan);
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.3);
+    transform: 0.3s;
+    font-size: 25px;
+    color: white;
+    border: 0px;
+}
+#gradientgenerator>button:hover {
+        box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.3) inset;
+
+}
+#addtocanvas {
+    z-index: 2;
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    width: 20%;
+    height: 20%;
+    border: 1px solid black;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+#resizedot{
+    border-radius: 50%;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border: 1px solid lightgray;
+    top: 0px;
+    left: 0px;
+    display: none;
+    z-index: 3;
+}
+
+#addtocanvas>button {
+    position: absolute;
+    bottom: -35px;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    height: 30px;
+    background: linear-gradient(45deg, blue, cyan);
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.3);
+    transform: 0.3s;
+    font-size: 25px;
+    color: white;
+    border: 0px;
+    pointer-events: all;
+}  
+    
+    
+    #textgenerator {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px 8px rgba(0,0,0,0.4);
+    padding: 0px;
+    display: none;
+}
+
+#textgenerator>span {
+    display: inline-block;
+   width: 24px;
+    height: 24px;
+    border: 3px solid white;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: green;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.3) inset, 0px 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+#textgenerator>span:hover {
+    animation: 0.3s colorhover;
+    border: 3px solid black;
+    width: 24px;
+    height: 24px;   
+}
+
+#previewtext {
+    width: 100%;
+    height: 75px;
+    margin: 0px;
+    background-color: rgba(0,0,0,0);
+    border: 0px;
+    font-family: Arial;
+    font-size: 30px;
+    resize: none;
+}
+
+
+#textgenerator>button {
+    width: 160px;
+    height: 30px;
+    background: linear-gradient(45deg, blue, cyan);
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.3);
+    transform: 0.3s;
+    font-size: 25px;
+    color: white;
+    border: 0px;
+}
+#textgenerator>button:hover {
+        box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.3) inset;
+
+}
+
+#bgimage {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.notes {
+    display: inline-block;
+    width: 100%;
+    height: 41px;
+    margin: 0px;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: -5px 0px 0px 5px white;
+    position: relative;
+}
+
+.notes::after {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    top: 8px;
+    left: 0px;
+    width: 100%;
+    height: 8px;
+    margin: 0px;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    background-color: white;
+
+}
+
+.notes::before {
+    position: absolute;
+    display: inline-block;
+    content: "";
+    top: 19px;
+    left: 0px;
+    width: 100%;
+    height: 8px;
+    margin: 0px;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    background-color: white;
+
+}
+
+#photocanvas {
+    position: absolute;
+    border: 10px solid black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.project>canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+    width: 150px;
+    height: 150px;
+}
+
+.gkey {
+    border: 2px solid black;
+    border-left: 0px solid rgba(0,0,0,0);
+    border-top: 0px solid rgba(0,0,0,0);
+    display: inline-block;
+    position: absolute;
+    width: 15px;
+    height: 55px;
+    top: 0px;
+    left: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 2;
+    transform: rotate(-5deg);
+}
+
+.gkey::after {
+    content: "";
+    border-radius: 50%;
+    right: 6px;
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+    
+}
+
+.gkey::before {
+    content: "";
+    border-radius: 50%;
+    left: 15px;
+    width: 10px;
+    height: 20px;
+    border-top: 1px solid black;
+    border-bottom: 0px solid black;
+    border-left: 3px solid black;
+    border-right: 5px solid black;
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    transform: rotate(15deg);
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: yellow;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+   box-shadow: 0 0 2px 2px inset rgba(0,0,0,0.3);
+}
+
+.slider:before {
+     box-shadow: 0 0 2px 2px rgba(0,0,0,0.3);
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: lightgreen;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  
+}
+
+.lcode {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    display: inline-block;
+}
+
+.lcode>span {
+    position: absolute;
+    left: 0px;
+    bottom: 25px;
+}
+.lcode>input {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    border: 0px;
+    width: 100%;
+    height: 20px;
+    box-shadow: 0 -27px 0 0 lightgray;
+    transition: box-shadow 0.3s;
+}
+
+.lcode>input:focus {
+    outline: none;
+    box-shadow: 0 -27px 0 0 rgba(0,0,0,0);
+}
+
+.lcode>input:focus::placeholder {
+  color: transparent;
+}
+
+.delete {
+    background-color: red;
+    width: 100px;
+    height: 30px;
+    color: white;
+    font-size: 15px;
+    border: 0px;
+}
+
+.modal2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    box-shadow: 0 0 0 50vmax rgba(0,0,0,0.5);
+    display: none;
+    overflow: auto;
+    z-index: 10;
+}
+
+.modal2>button {
+    background-color: gray;
+    color: black;
+    width: auto;
+}
+#igbody {
+    margin: 5px;
+    font-size: 40px;
+    display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+          width: 40px;
+          height: 40px;
+}
+.instagram {
+    box-sizing: border-box;
+  background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), -webkit-gradient(linear, left top, left bottom, from(#6559ca), color-stop(30%, #bc318f), color-stop(50%, #e33f5f), color-stop(70%, #f77638), to(#fec66d));
+  background: radial-gradient(circle farthest-corner at 35% 90%, #fec564, transparent 50%), radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%), radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 20% -50%, #5258cf, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 60% -20%, #893dc2, transparent 50%), radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent), linear-gradient(#6559ca, #bc318f 30%, #e33f5f 50%, #f77638 70%, #fec66d 100%);
+  border-radius: .2em;
+  height: 1em;
+  position: relative;
+  width: 1em;
+}
+.instagram:before, .instagram:after {
+    box-sizing: border-box;
+  color: #fff;
+  content: '';
+  display: block;
+  position: absolute;
+  border: .075em solid;
+}
+.instagram:before {
+  border-radius: inherit;
+  height: .75em;
+  -webkit-transform: translate(0.125em, 0.125em);
+          transform: translate(0.125em, 0.125em);
+  width: .75em;
+}
+.instagram:after {
+  border-radius: 1em;
+  box-shadow: .2em -.2em 0 -.16em;
+  height: .4em;
+  -webkit-transform: translate(0.3em, 0.3em);
+          transform: translate(0.3em, 0.3em);
+  width: .4em;
+}
+
+.question {
+    display: inline-block;
+    width: 200px;
+    height: 350px;
+    position: relative;
+    margin: 20px;
+}
+
+.question>div {
+    padding: 10px;
+    position: absolute;
+    background: linear-gradient(to top right, #ff66ff 0%, #ff9933 100%);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: -5px 5px 8px 5px rgba(0,0,0,0.3);
+}
+
+@keyframes rotatel {
+    0% {
+        transform: rotateY(0deg);
+        color: lightgreen;
+    }
+    50% {
+        color: green;
+    }
+    100% {
+        color: lightgreen;
+        transform: rotateY(360deg);
+    }
+}
+
+#start {
+    color: white;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(100,100,100,0.5);
+    padding-top: 50px;
+    
+}
+
+#start>span {
+    display: block;
+    width: 150px;
+    height: 170px;
+    background: white;
+    border-radius: 10px;
+    margin: auto;
+    position: relative;
+}
+
+.userlogo {
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid lightgray;
+    box-shadow: 0px 0px 7px 7px inset rgba(0,0,0,0.2);
+}
+
+#start>span>input {
+    position: absolute;
+    left: 5px;
+    bottom: -40px;
+    border-radius: 5px;
+    background-color: rgba(200,200,200,0.7);
+    border: 3px solid rgba(100,100,100,0.7);
+    width: 134px;
+    height: 20px;
+}
+
+#start>span>button {
+     position: absolute;
+    right: -25px;
+    bottom: -37px;
+    background-color: rgba(200,200,200,0.7);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+#start>span>button::after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid gray;
+    border-right: 2px solid gray;
+    top: 50%;
+    left: 7px;
+    transform: rotate(-45deg) translateY(-50%);
+}
+
+.level {
+    display: inline-block;
+    width: 175px;
+    height: 45px;
+    border-radius: 7px;
+    background: darkgray;
+    position: relative;
+    overflow: hidden;
+}
+
+.level>span {
+    display: inline-block;
+    position: absolute;
+    font-size: 20px;
+    top: 40%;
+    left: 0px;
+    color: white;
+    width: 80%;
+    border-bottom: 4px solid lightgreen;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.level::after {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 15px;
+    top: 20px;
+    right: 10px;
+    background-color: lime;
+}
+
+.level::before {
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 0px;
+    top: 0px;
+    right: 5px;
+    border: 10px solid rgba(0,0,0,0);
+    border-bottom-color: lime;
+}
+
+.level>span::after {
+    position: absolute;
+    content: "Level";
+    height: 15px;
+    top: -15px;
+    left: 0px;
+    font-size: 13px;
+}
+
+#videoeditor {
+    width: 100%;
+    height: 100%;
+    background: lightgray;
+}
+
+#videos {
+    width: 100%;
+    height: 175px;
+    background-color: gray;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    
+}
+
+#videos>div>span, #videos>span {
+    display: inline-block;
+    background-color: darkgray;
+    width: 250px;
+    height: 155px;
+    top: 10px;
+    border-radius: 10px;
+    position: absolute;
+}
+
+#videoframe {
+    margin: auto;
+}
+
+#friends {
+    height: 360px;
+    width: 300px;
+    right: 50px;
+    background-color: white;
+    top: 20px;
+    margin: auto;
+    margin-right: 0px;
+    color: black;
+}
+
+#friends .level {
+    width: 100px;
+    margin: 10px;
+}
+#friends span {
+    text-align: left;
+}
+
+#error {
+    z-index: 15;
+}
+
+#prepage {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    margin: 0; 
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+
+#predashboard {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+    
+}
+
+#predashboard>div {
+    position: absolute;
+    bottom: 0px;
+    background-color: rgb(245,245,245);
+    width: 100%;
+    height: 40%;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.modal2>.close {
+    z-index: 9;
+}
+
+#accountprojects {
+    width: 90%;
+    border-radius: 20px;
+    min-height: 50%;
+    background-color: #383838;
+    margin: auto;
+    display: block;
+}
+
+#sharebtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #1E90FF;
+    border-radius: 10px;
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    color: white;
+    font-size: 20px;
+    z-index: 9;
+}
+
+#managedata {
+    text-align: left;
+}
+#managedata>div>div {
+    width: 100%;
+    height: 20px;
+    color: black;
+    background-color: lightgray;
+}
+#managedata>div>div:nth-child(even) {
+    background-color: gray;
+}
+
+#managedata>textarea {
+    width: 100%;
+    border: 0px;
+    height: 50vh;
+    background-color: lightgray;
+}
+
+.speechbox {
+    position: absolute;
+    width: 90%;
+    height: 150px;
+    max-width: 200px;
+    border-radius: 15px;
+    background-color: white;
+}
+.speechbox::before {
+    content: "";
+    position: absolute;
+    height: 150px;
+    top: -2px;
+    left: -2px;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+.speechbox::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -30px;
+    border: 30px solid rgba(0,0,0,0);
+    border-bottom: 0px;
+    transform: translateX(-50%);
+    border-top-color: white;
+}
+
+.pause {
+    width: 5px;
+    height: 20px;
+    border: 0px;
+    border-left: 5px solid lightgrey;
+    border-right: 5px solid lightgrey;
+    display: inline-block;
+}
+
+.play {
+    width: 0px;
+    height: 0px;
+    border: 10px solid transparent;
+    border-left: 15px solid lightgrey;
+    border-right: 0px;
+    display: inline-block;
+
+}
+
+#videocontrols {
+    position: absolute;
+    bottom: 175px;
+    height: 30px;
+    left: 0px;
+    padding: 10px;
+    background-color: gray;
+    border-radius: 0 10px 0 0;
+}
+#chatdiv {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 50px;
+    top: 0;
+    color: white;
+    height: 100%;
+    background: linear-gradient(301deg, rgba(199,0,255,1) 0%, rgba(255,207,0,1) 65%); ;
+}
+#sendbar {
+    height: 30px;
+    top: 85vh;
+    right: 8vw;
+    width: 40vw;
+    background-color: rgba(240,240,240,0.8);
+    margin-top: 30px;
+}
+#chatdiv>div {
+    position: absolute;
+    
+    border-radius: 20px;
+}
+
+#chatlog {
+    top: 5vh;
+    background-color: rgba(10,10,10,0.8);
+    height: 80vh;
+    width: 60vw;
+    left: 32vw;
+    overflow: hidden auto;
+}
+
+#contacts {
+    top: 5vh;
+    background-color: rgba(10,10,10,0.8);
+    height: 90vh;
+    width: 28vw;
+    left: 2vw;
+}
+
+.mymessage {
+    margin: 10px;
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 5px 5px 5px 0;
+    width: 200px;
+    height: auto;
+    margin-right: auto;
+    margin-left: 15px;
+    background-color: lightblue;
+    text-align: left;
+    max-width: 40%;
+}
+
+.rmessage {
+    margin: 10px;
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 5px 5px 0 5px;
+    width: 200px;
+    height: auto;
+    background-color: lightgray;
+    margin-left: auto;
+    margin-right: 15px;
+    text-align: left;
+    max-width: 40%;
+}
+
+#chatlog>div>p {
+    font-size: 10px;
+}
+
+#contacts>div {
+    height: 50px;
+    border-top: 1px solid gray;
+    font-size: 30px;
+    text-align: left;
+    padding: 5px;
+}
+
+#contacts>div>p {
+    font-size: 15px;
+}
+
+
+#chattext {
+    width: 90%;
+    height: 100%;
+    background-color: rgba(240,240,240,0.5);
+    border: 0;
+    border-radius: 15px 0 0 15px;
+    margin: 0;
+    
+}
+
+#sendbar>span {
+    display: inline-block;
+    width: 10%;
+    color: deepskyblue;
+    cursor: pointer;
+}
+.mail {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border: 20px solid lightgrey;
+    border-bottom: 15px solid gray;
+    border-top: 15px solid deepskyblue;
+    margin: 5px;
+    cursor: pointer;
+}
+
+        </style>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>JuiceFruit</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body onload="responsivesize()" onresize="responsivesize()" onkeypress="pianokey(event)">
+        <div id="contentdiv">
+            <div  style="width: 100%; height: 100vh; position: sticky; pointer-events: auto; z-index: 0; left: 0px; top: 50px;">
+            <h1 style="font-size: 70px;margin-top: 50px;"><span>Ju<span style="width: 50px; display: inline-block;"><span class="jflogo"><span class="jfruit"></span><span class="jfjuice"></span></span></span>ce</span><span style="font-size: 0px;"> </span><span>Fruit</span></h1>
+                    <h1 style="font-size: 25px; color: white;"><strong>We want to help</strong></h1>
+                    <br>
+                    </div>
+                    <div style="top: 100vh; position: absolute" id="updiv">
+                        <div style="background: linear-gradient(to top left, blue 0%, cyan 100%);">
+                    <br>
+                    <h1>About us</h1>
+                    <br>
+                    <span class="question">
+                        <div>
+                            <h1>Who are we?</h1>
+                            <p>We are a group of people that want to make the world a better place. We want to help you get to your dreams!</p>
+                        </div>
+                    </span>
+                    <span class="question">
+                        <div>
+                            <h1>Why are we doing this?</h1>
+                            <p>So we are telling you that you get powerfull tools for absolutely free and we are not even getting any money out of it? Yes. We do this just of our kindness and because it helps everyone if the others are doing well too.</p>
+                        </div>
+                    </span>
+                    <br>
+                    <br>
+                    <div style=" width: 100%; min-height: 110vh; background: linear-gradient(to bottom left, #ff33cc 0%, #3366ff 100%);">
+                        <div style="position: relative;">
+                           <h1 style="position: sticky; top: 0px; z-index: 3;">The cost is</h1>
+                        <span style="animation: rotatel 3s infinite; display: inline-block; height: auto; width: auto; color: green; font-size: 50vh;">0</span>
+     
+                        </div>
+                                            <h1>Services</h1>
+                        <span class="gbox"><h1>Code editor</h1><p>We have a powerful code editor for HTML, CSS and JavaScript</p></span>
+                        <span class="gbox"><h1>Photo editor</h1><p>We also have a photo editor. You can edit your photos with it or use it as a paint app</p></span>
+                        <span class="gbox"><h1>File manager</h1><p>Of course we have a file manager to manage files in your projects</p></span>
+                    </div>
+                    
+                    <div style="margin: 20px; padding: 20px; border-radius: 15px 15px 0 0; background-color: white; margin-bottom: 0;">
+                        <h1>Thanks</h1>
+                        <br>
+                        <p><a href="https://codepen.io/katydecorah">Katy DeCorah</a> for making the Instagram logo (with CSS)!</p>
+                        <p><a href="https://www.w3schools.com/">w3schools</a> for the toggle switch design!</p>
+                        <br>
+                        <h1>Copyrights</h1>
+                        <br>
+                        <h2>Instgram logo CSS by Katy DeCorah</h2>
+                        <br>
+                        <p>Copyright (c) 2020 by Katy DeCorah (https://codepen.io/katydecorah/pen/PNLePj)<br>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                        
+                    </div></div>
+                    </div></div>
+
+        <div id="toolbar">
+            <span class="edit" onclick="projectopen()"><span class="edit2"></span></span>
+            <span class="account" onclick="useropen()"></span>
+            <span class="mail" onclick="openchat()"></span>
+            <span class="close" id="closebutton" onclick="hidemenus()"></span>
+            
+            <div id="igbody">
+                <a href="https://www.instagram.com/juicefruitofficial/"> <div class="instagram"></div></a>
+               
+            </div>
+            
+        </div>
+        <div id="projectdiv">
+            <h1>Projects</h1>
+            <div id="searchdiv">
+                <form id="searchform" method="POST" action="search.php" target="results">
+             <input type="text" id="search" name="text" placeholder="Search..."><span id="searchbutton" class="search" onclick="searcher()"></span><span class="close" onclick="closesearch()" id="searchclose"></span>
+            <input type="text" style="display: none;" name="dir" value="projects">
+        </form>
+               
+                <div id="results">
+                    <iframe name="results" style="margin: auto; margin-top: 0px; width: 100%; height: 500px; border: 0px; z-index: 9;border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+                    </iframe>
+                </div>
+            </div>
+            <span onclick="newproject()" class="menu1" style="cursor: pointer;"><span class="close" style="transform: rotate(0deg)"></span>New project</span>
+            <div style="display: block; position: relative;margin: auto; padding: 0px;">
+            <div id="myprojects">
+                
+                <h1>My Projects</h1>
+            </div>
+            
+            <div id="friends">
+                <h1>Friends</h1><br>
+                
+                </div>
+            </div>
+            <div id="recommended">
+                <h1>For you</h1>
+            </div>
+            <div id="downprojects">
+                
+                <h1>My downloaded Projects</h1>
+            </div>
+        </div>
+        <div class="modal2" style="width: 90vw; height: 90vh;">
+            <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+            <iframe id="prepage">
+            </iframe>
+            <div id="predashboard">
+                <div>
+                    <h1>Members</h1>
+                    <p id="membercount">0</p>
+                    <h1>Owner</h1>
+                    <h2 id="preowner">JuiceFruit</h2>
+                    <span class="level">
+                        <span>1</span>
+                    </span>
+                    <p>Privacy state: <span id="presec">Private</span></p>
+                </div>
+                
+            </div>
+        </div>
+        <div id="newproject" class="modal2">
+            <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="closenewproject()"></span>
+        <h1>Create a new project</h1>
+                <table style="margin: auto; text-align: left;">
+                    <tr>
+                        <td>Project name:</td>
+                        <td><input type="text" id="pname"></td>
+                    </tr>
+                    <tr>
+                        <td>Project description:</td>
+                        <td><textarea id="pdesc"></textarea></td>
+                    </tr>
+                </table>
+                <button onclick="createproject()" class="accept">Create</button>
+            </div>
+            
+            <div id="createfile" class="modal" style="text-align: left;">
+                <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+                <span onclick="createfile2('.js')" class="filetype" style="background-color: yellow; vertical-align: text-bottom; font-size: 75px; text-align: right;">
+                    <span style="position: absolute; bottom: 5px; right: 5px; color: black;">JS</span>
+                </span>
+                <span class="filetype" style="background-color: orange;" onclick="createfile2('.html')">
+                    <span style="color: white; position: absolute; width: 100%;
+                    font-size: 50px; text-align:center; top: 0px; left: 0px;">HTML</span>
+                     <span style="color: rgba(125,125,125,0.5); position: absolute; width: 100%;
+                    font-size: 70px; text-align:center; bottom: 40px; left: 0px;">< / ></span>
+                </span>
+                
+                <span class="filetype" style="background-color: blue;" onclick="createfile2('.css')">
+                    <span style="color: white; position: absolute; width: 100%;
+                    font-size: 50px; text-align:center; top: 0px; left: 0px;">CSS</span>
+                     <span style="color: rgba(225,225,225,0.7); position: absolute; width: 100%;
+                    font-size: 70px; text-align:center; bottom: 40px; left: 0px;">< / ></span>
+                </span>
+                
+                <span id="musicicon" class="filetype" style="background-color: lightgreen;" onclick="createfile2('.jfm')">
+                    <span style="color: white; position: absolute; width: 100%;
+                    font-size: 40px; text-align:center; top: 0px; left: 0px;">JuiceFruit Music</span>
+                     <span class="headphones" style="position: absolute; left: 75px; bottom: 20px;"></span>
+                </span>
+                
+                <span class="filetype" style="background-color: pink;" onclick="createfile2('.paint')">
+                    <span style="color: white; position: absolute; width: 100%;
+                    font-size: 40px; text-align:center; top: 0px; left: 0px;">Painting</span>
+                     <span class="painting" style="position: absolute; left: 40px; bottom: 20px;"></span>
+                </span>
+                </div>
+        <div id="editor">
+            <span id="sharebtn" onclick="shareproject()">Share</span>
+            <div id="shareoptions" class="modal2">
+                <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+                <h1>Publishing options</h1> 
+               
+                <label>
+                    <span>Project name:</span>
+                    <input typr="text" id="sharename">
+                    <h2>Privacy settings</h2>
+                    </label>
+                    <p>Allow re-uploading</p>
+                    <label class="switch">
+                   
+                    <input type="checkbox" id="reup" >
+                    <span class="slider"></span>
+                </label>
+                    <p>Allow users to download</p>
+                    <label class="switch">
+                   
+                    <input type="checkbox" id="download">
+                    <span class="slider"></span>
+                </label>
+                 <p>Allow users to edit the original project on the server</p>
+                    <label class="switch">
+                   
+                    <input type="checkbox" id="serveredit" >
+                    <span class="slider"></span>
+                </label>
+                <p hidden>Only for certain users (they have to be your friends)</p>
+                    <label class="switch" style="display: none;">
+                   
+                    <input hidden type="checkbox" id="userbase" onchange="if (this.checked==false) {geid('addusers').style.display='none'}else{geid('addusers').style.display='block'}">
+                    <span hidden class="slider"></span>
+                </label>
+                <div id="addusers" hidden>
+                    <h1>Users you can add</h1>
+                </div>
+                <br>
+                <button onclick="publishproject()">Share</button>
+            </div>
+            <div id="piano" onclick="playpiano1(event)">
+                <span class="key">C</span><span class="key">D<span class="blackkey">Db C#</span></span><span class="key">E<span class="blackkey">Eb D#</span></span><span class="key">F</span><span class="key">G<span class="blackkey">Gb F#</span></span><span class="key">A<span class="blackkey">Ab G#</span></span><span class="key">B<span class="blackkey">Bb A#</span></span><span class="key" name="2">C</span><span class="key" name="2">D<span class="blackkey">Db C#</span></span><span class="key" name="2">E<span class="blackkey">Eb D#</span></span><span class="key" name="2">F</span><span class="key" name="2">G<span class="blackkey">Gb F#</span></span><span class="key" name="2">A<span class="blackkey">Ab G#</span></span><span class="key" name="2">B<span class="blackkey">Bb A#</span></span><span name="3" class="key">C</span><span class="key" name="3">D<span class="blackkey">Db C#</span></span><span class="key" name="3">E<span class="blackkey">Eb D#</span></span>
+            </div>
+            <h1 id="projecteditheader">The project editor</h1>
+            <span id="preview">
+                <div id="previewdiv">
+                    <iframe id="testframe"></iframe>
+                    <div id="photoeditor" >
+                        <div id="addtocanvas">
+                            <img id="bgimage">
+                            <span id="addtext"></span>
+                            <button onclick="addtocanvas2(event)">Add</button>
+                        </div>
+                        <div id="resizedot" onmousedown="resizeing=true" onmousemove="resizepre(event)" onmouseup="resizeing=false" onmouseleave="resizeing=false"></div>
+                        <canvas id="photocanvas" width="100%" height="100%" onmousedown="painting=true" onmouseup="painting=false" onmousemove="paint(event)" onmouseleave="painting=false"></canvas>
+                    </div>
+                <div id="videoeditor">
+                    <div id="videocontrols">
+                        <span class="play" id="videoplay" onclick="playvideo()"></span><span id="videotime">0:00/0:00</span>
+                    </div>
+                    <div id="videos">
+                        <span style="left: 10px;"><div style="width: 100px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center;"><span class="addtovideo">Add</span><br><span class="close" style="transform: rotate(0deg)" onclick="addtovideo()"></span></div><div class="speechbox" style="display: none; bottom: 100px; left: 50%; transform: translateX(-50%); overflow: hidden auto;" id="addtovideo"></div></span><div style="overflow: auto hidden; width: auto; height: 100%;"></div>
+                    </div>
+                </div>
+                </div>
+            </span>
+            <span id="projectfiles">
+                <div id="pfiles">
+                    <div style="text-align: center; width: 100%; color: lightgray; background-color: gray; margin: 0px;">
+                        <h1 style="color: white; margin: 0px; " >Files</h1>
+                    <span class="close" style="transform: rotate(0deg); background-color: darkgray;" onclick="createfile()"></span>
+                    </div>
+                    <div id="deletebtn" class="close" style="position: absolute; right: 0px; width: 20px; height: 20px;"></div>
+                </div>
+            </span>
+            <span id="fileedit">
+                <div id="fileedit2">
+                    <div id="edittools">
+                        <button onclick="testcode()">Preview</button>
+                        <button onclick="savefile('')">Save</button>
+                            <span id="musictools" style="display: none;">
+                                <span style="display: inline-block; width: 30px; height: 30px; background-color: red; border-radius: 50%;" id="record" onclick="record()"></span>
+                         
+                            </span>
+                        
+                    </div>
+                    <div id="musiceditor">
+                        
+                        <div id="timebar"></div>
+                        <div id="notes">
+                            <div class="notes">
+                                <span class="gkey">
+                                    <span class="gkey2"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <pre id="fileditor"></pre>
+                    <textarea onscroll="scrollsync()" id="fileeditor" onkeyup="updatecode()"  onkeypress="updatecode()"  onkeydown="updatecode()" onchange="updatecode()"></textarea>
+                    <div id="painttools">
+                        <span>
+                            <div>
+                            <div id="colors">
+                            <h1>Color</h1>
+                            
+                            <span id="currentcolor" style="background-color: green;" onclick="geid('colorchange').click()"></span>
+                            <p>Click to change</p>
+                            <h2>Previous</h2>
+                            <span onclick="previouscolor(this)" style="background-color: green;"></span><span style="background-color: green;" onclick="previouscolor(this)"></span><span style="background-color: green;" onclick="previouscolor(this)"></span><span style="background-color: green;" onclick="previouscolor(this)"></span>
+                            <input type="color" id="colorchange" style="display: none;" onchange="changecolor()">
+                            </div>
+                            <div id="size">
+                                <h1>Size</h1>
+                                <span onclick="changesize('+')"><span></span></span>
+                                <span><span></span></span>
+                                <span onclick="changesize('-')"><span></span></span>
+                            </div>
+                            </div>
+                        </span>
+                        <span>
+                            <div id="paintadd">
+                                <h1>Tools</h1>
+                                <span class="brush"></span>
+                                <h2>Add</h2>
+                                <div id="gradientgenerator">
+                                    <div id="previewgradient"></div>
+                                    <span onclick="geid('color1').click()"></span>
+                                    <span onclick="geid('color2').click()"></span>
+                                    <br>
+                                    <button onclick="addtocanvas('gradient')">Add</button>
+                                </div>
+                                
+                                <div id="textgenerator">
+                                    <textarea id="previewtext" placeholder="Type text here"></textarea>
+                                    <span onclick="geid('color3').click()"></span>
+                                    
+                                    Font-size: <input type="number" min="0" value="30" max="100" onchange="geid('previewtext').style.fontSize=this.value + 'px';" id="fsize">
+                                    <br><button onclick="addtocanvas('text')">Add</button>
+                                </div>
+                                <br><br><br><br><br>
+                                <span class="square" onclick="geid('imagein').click()"></span><span class="gradient1" onclick="togglegeditor()"></span><span style="display: inline-block; height: 40px; width: 40px; border-radius: 5px; background-color: lightgreen; margin: 0px; margin-right: 5px; margin-left: 5px; font-size: 30px; position: relative; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.4);" onclick="texttoggle()"><span style="position: absolute; left: 0px;">Aa</span></span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </span>
+            
+            
+                
+        </div>
+        <div id="modal" class="modal">
+            <h1>Welcome to our websites!</h1>
+            <p>When you use our websites, we will store data on your computer.</p>
+            <h2>What are we storing?</h2>
+            <div class="storage">
+                <h1>Web storage</h1>
+                <div style="text-align: left;">
+                    <p> - Your projects</p>
+                    <p> - Info about your projects like it's name and the file and directory names</p>
+               <p> - Your project history</p>
+                <p> - Most visited and liked projects and creators</p>
+                <p> - Most visited gategories</p>
+                </div>
+                
+            </div>
+            <button class="accept" onclick="acceptdata()">Accept</button>
+        </div>
+        <div id="userdiv">
+            <div style="width: 200px">
+                <h1>User</h1>
+                <span class="level"><span id="mylevel">1</span></span>
+                <div>
+                <label class="lcode">
+                    <span>Username</span>
+                    <input type="text" placeholder="Username" id="username" onchange="localStorage.username=this.value">
+                </label>
+                <label class="lcode">
+                    <span>Password</span>
+                    <input type="password" placeholder="Password" id="password" onchange="localStorage.password=this.value">
+                </label>
+                <br>
+                <br>
+                <button onclick="managedata()" style="width: auto; color: black">Manage your data</button>
+                </div>
+                <div style="text-align: right;">
+                    <label class="switch">
+                    <span style="position: absolute; left: -120px; top: 50%; transform: translateY(-50%);">Developer Mode </span>
+                    <input type="checkbox" id="devset" onchange="devupdate(event)">
+                    <span class="slider"></span>
+                </label>
+                </div>
+                
+                <br>
+                <button onclick="localStorage.rememberpas='false'; location.reload();" style="color: black;">Log out</button>
+                <br><br>
+                <button class="delete" onclick="geid('resetwarning').style.display='block'">Delete all data</button>
+
+            </div>
+        </div>
+        <div id="resetwarning" class="modal2">
+            <h1>Are you 100% sure to delete all your data?</h1>
+            <button onclick="this.parentElement.style.display='none'">No</button>
+            <button onclick="this.parentElement.style.display='none'; resetdata()">Yes</button>
+        </div>
+       
+        </div>
+        <div class="modal2" style="z-index: 15;">
+            <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+            <div id="error"></div>
+            
+        </div>
+        <div class="modal2" style="z-index: 15;">
+            <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+            <div id="managedata"></div>
+            
+        </div>
+        <div id="addfriend" class="modal2">
+                <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+                <h1>Add friends</h1>
+                <input type="text" id="friendname" placeholder="Type a username" onkeyup="suggestions()" style="width: 150px">
+                <div id="suggestions" style="overflow-x: hidden; overflow-y: auto;width: 156px; border-radius: 0 0 10px 10px; background-color: lightgray; height: 200px; margin: auto;">
+                    <p style="color: rgba(0,0,0,0.5)">Start typing to see suggestions.</p>
+                </div>
+                <br><br><button onclick="addfriend2()">Add</button>
+        </div>
+        <div id="setup" class="modal2" style="background-color: lightgray;">
+            <h1>Hello! Welcome to JuiceFruit!</h1>
+            <p>Let's make you a device account. It is a security feature for your data. This data is locally stored on your device and it will NOT go to our servers at any point.</p>
+            <label class="lcode">
+                    <span>Username</span>
+                    <input type="text" placeholder="Username" id="username1" onchange="localStorage.username=this.value">
+                </label>
+                <label class="lcode">
+                    <span>Password</span>
+                    <input type="password" placeholder="Password" id="password1" onchange="localStorage.password=this.value">
+                </label>
+                <br>
+                <button onclick="setup()">Continue</button>
+        </div>
+        <div id="start">
+            <h1>Please log in</h1>
+            <br>
+            <span>
+                <span id="lastuserlogo" class="userlogo"></span>
+                <span id="lastuser"></span>
+                <input type="password" id="psec">
+                <button onclick="login()"></button>
+            </span>
+            <br>
+            <br>
+            <br>
+            <label>
+                <span>Remember me</span>
+                <input type="checkbox" id="loginreq">
+            </label>
+            <p onclick="forgotpassword()">Forgot your password?</p>
+        </div>
+        <div hidden>
+            <input type="color" id="color1" onchange="selectcolor()">
+            <input type="color" id="color2" onchange="selectcolor()">
+            <input type="color" id="color3" onchange="selectcolor()">
+            <input type="file" id="imagein" onchange="addtocanvas('image')">
+            <iframe name="accountframe"></iframe>
+            <form id="accountform" method="post" action="account.php" target="accountframe">
+                <textarea id="datainput" name="data"></textarea>
+                <input type="text" id="username2" name="account">
+            </form>
+            <form id="projectform" method="post" action="projects.php" target="projectframe">
+                <textarea id="projectdata" name="data"></textarea>
+                <input type="text" id="prname" name="project">
+            </form>
+            <iframe name="projectframe">
+            </iframe>
+        </div>
+        <div id="showaccount" class="modal2">
+            <span class="close" style="position: absolute; right: 10px; top: 10px;" onclick="this.parentElement.style.display='none'"></span>
+            <h1 id="accountname"></h1>
+            <span class="level"><span id="accountlevel"></span></span>
+            <h1>Projects</h1>
+            <div id="accountprojects" style="color: white;">
+                
+            </div>
+        </div>
+<div style="display: none; position: absolute; width: 100%; height: 100%; top: 0; z-index: 100; color: white; left: 0; background-color: black;">
+    <h1>Our websites are being updated!</h1><p>Please come back after a couple of hours!</p>
+</div>
+<div id="chatdiv">
+    <div id="chatlog">
+        <h1>Chat</h1>
+        <div class="mymessage">Hello</div>
+        <div class="rmessage">Hi</div>
+    </div>
+    <div id="sendbar">
+        <input type="text" id="chattext" placeholder="Type message here..."><span onclick="sendmessage()">Send</span>
+    </div>
+    <div id="contacts">
+        <h1>Contacts</h1>
+        <div>Contact1<p>Last message</p></div>
+        <div>Contact2<p>Last message</p></div>
+    </div>
+</div>
+        <script id="script1"></script>
+        <script>
+        
+        window.onmessage = function(e){
+            console.log(e.data)
+    if (e.data == 'created') {
+        
+        
+    }else if (e.data.substring(0,"search:".length)=="search:") {
+        var edata=e.data.substring("search:".length, e.data.length)
+        var dir=edata.split(":") [0]
+        var file=edata.split(":") [1]
+        if (dir=="projects") {
+            editpublicproject(file)
+            closesearch()
+        }
+    }else if (e.data=="noAccount") {
+            if (geid("setup").style.display=="block") {
+    localStorage.username=geid("username1").value
+    localStorage.password=geid("password1").value
+    geid("setup").style.display="none"   
+    geid("datainput").value="1"
+    geid("accountform").submit()
+            }else if (geid("addfriend").style.display=="block") {
+            error("No account named " + geid("friendname").value)
+            }else if (friendscan != "false") {
+              
+                var friends=localStorage.friends.split(",")
+                var scanning=friendscan
+                    friendscan=scanning + 1
+                    geid("datainput").value=""
+                    geid("username2").value=friends[scanning]
+                    geid("accountform").submit()
+                    if (scanning==friends.length - 1) {
+                        friendscan="false"
+                    }
+                    
+                    
+            }
+        }else if (e.data=="projectCreated"){
+            if (geid("shareoptions").style.display=="block") {
+            
+                geid("shareoptions").style.display="block"
+            }
+        }else if (e.data != "") {
+            if (e.data.substring(0, "account:".length)=="account:") {
+                //If this is related to an account
+                var edata=e.data.substring("account:".length, e.data.length)
+                if (publishing != false) {
+                    geid("datainput").value=edata + "\n" + publishing
+                    geid("username2").value=localStorage.username
+                    publishing=false
+                    geid("accountform").submit()
+                    geid("shareoptions").style.display="none"
+                }
+                 if (geid("setup").style.display=="block") {
+    error("Account already exists. Please choose another username.")  
+            }else if (geid("addfriend").style.display=="block") {
+    geid("addfriend").style.display="none"
+    localStorage.friends=localStorage.friends + "," + geid("friendname").value
+    projectopen()
+            }else if (friendscan != "false") {
+              
+                var friends=localStorage.friends.split(",")
+                var scanning=friendscan
+                var newelement=document.createElement("span")
+                    newelement.innerHTML=friends[scanning]
+                    newelement.style.top=(80 + scanning * 70 ) + "px"
+                    newelement.style.display="inline-block"
+                    newelement.style.width="100px"
+                    newelement.style.height="45px"
+                    newelement.style.position="absolute"
+                    newelement.style.right="120px"
+                    newelement.style.transform="translateY(-50%)"
+                    newelement.setAttribute("onclick", "showaccount(\"" + friends[scanning] +"\")")
+                    geid("friends").appendChild(newelement)
+                    var newelement=document.createElement("span")
+                    if (edata.includes("\n")) {
+                        newelement.innerHTML="<span>" + edata.split("\n") [0] + "</span>"
+                    }else{
+                    newelement.innerHTML="<span>" + edata + "</span>"
+                    }
+                    newelement.setAttribute("onclick", "showaccount(\"" + friends[scanning] +"\")")
+                    newelement.style.top=(55 + scanning * 70 ) + "px"
+                    newelement.style.display="inline-block"
+                    newelement.style.width="100px"
+                    newelement.style.height="45px"
+                    newelement.style.position="absolute"
+                    newelement.style.right="0px"
+                    newelement.className="level"
+                    newelement.style.transform="translateY(-50%)"
+                    geid("friends").appendChild(newelement)
+                    var newelement=document.createElement("span")
+                    newelement.setAttribute("onclick", "showaccount(\"" + friends[scanning] +"\")")
+                    newelement.style.top=(65 + scanning * 70 ) + "px"
+                    newelement.style.display="inline-block"
+                    newelement.style.width="45px"
+                    newelement.style.height="45px"
+                    newelement.style.position="absolute"
+                    newelement.style.left="5px"
+                    newelement.className="userlogo"
+                    newelement.style.transform="translateY(-50%)"
+                    geid("friends").appendChild(newelement) 
+                    friendscan=scanning + 1
+                    geid("datainput").value=""
+                    geid("username2").value=friends[scanning]
+                    geid("accountform").submit()
+                    if (scanning==friends.length - 1) {
+                        friendscan="false"
+                    }
+                    
+                    
+            }else if (accountshow==true) {
+                //If showing an account
+                if (edata.includes("\n")) {
+                    
+                    var acdata=edata.split("\n")
+                    geid("accountlevel").innerHTML=acdata[0]
+                    geid("accountprojects").innerHTML=""
+                    var projects=acdata
+                    
+                    for (scanning=1; scanning < acdata.length; scanning++) {
+                        //Make a temp project
+
+                       var newelement=document.createElement("p")
+                    //newelement.setAttribute("class", "project")
+                    //newelement.innerHTML="<span onclick=\"homepage('" + projectname +"')\"><br><br><h1>" + projects[scanning] + "</h1><div>" + sessionStorage.projects["public/" + projects[scanning] + "/description.html".replace(/script>/g, "p>") +"</div></span><span class=\"editbutton\" onclick=\"editpublicproject('" + projects[scanning] + "')\"><span class=\"edit\" style=\"width: 20px; height: 20px;\"><span class=\"edit2 editproject\"></span></span>Edit</span>";
+                    newelement.innerHTML=projects[scanning]
+                    newelement.setAttribute("onclick","editpublicproject(this.innerHTML)")
+                    geid("accountprojects").appendChild(newelement)
+                    }
+                }else{
+                    geid("accountlevel").innerHTML=edata;
+                    geid("accountprojects").innerHTML="<p style=\"color: lightgray\">No public projects</p>"
+                }
+            }
+            
+            }else if (e.data.substring(0,"project:".length)=="project:") {
+                //If this is related to projects
+                var edata=e.data.substring("project:".length, e.data.length)
+                if (importpublicproject != false) {
+                    var datas=edata.split("\n")
+                    var files=datas[10].split(":") [0]
+                    localStorage["public/"+importpublicproject + "/" + datas[10].split(":") [0]]=decodeURIComponent(datas[10].split(":") [1])
+                    localStorage.publicprojects=localStorage.publicprojects + ";" + importpublicproject
+                    for (i=11; i < datas.length; i++) {
+                        if (datas[i].includes(":")) {
+                        files=files + "," + datas[i].split(":") [0]
+                        localStorage["public/" + importpublicproject + "/" + datas[i].split(":") [0]]=decodeURIComponent(datas[i].split(":") [1])
+                        }
+                    }
+                    localStorage["project_public/" + importpublicproject]=files
+                    
+                    editproject("public/" + importpublicproject)
+                    importpublicproject=false;
+                    geid("showaccount").style.display="none"
+                }
+                
+                if (geid("shareoptions").style.display=="block") {
+                    //If sharing a project
+                    error("Project already exists")
+                }
+            }
+           
+        }
+    };
+        //-----------------startup---------------------
+        var resizeing=false;
+        var linesize=5
+        var accountshow=false;
+        geid("previewtext").style.fontSize=geid("fsize").value + "px";
+        sessionStorage.projects=""
+geid("testframe").src="about:blank"
+geid("previewtext").style.fontFamily="Arial"
+var painting=false
+var paintcolor="blue"
+var gradientangle=45
+        var currentoctave=4;
+        var projectname="";
+        var projectdesc="";
+        var lupdate=5
+        var friendscan="false";
+       var localstorage= false
+        if (localStorage) {
+            localstorage=true
+        }
+        if (localStorage.used) {
+            
+        }else {
+            localStorage.used=0
+            
+        }
+        if (sessionStorage.seenusers) {
+            
+        }else{
+            sessionStorage.seenusers=",JuiceFruit,150-bot,"
+        }
+        if (localStorage.favusers) {
+            
+        }else{
+            localStorage.favusers=sessionStorage.seenusers;
+        }
+        if (localStorage.projects) {
+            
+        }else {
+            localStorage.projects=""
+            
+        }
+        if (localStorage.publicprojects) {
+            
+        }else {
+            localStorage.publicprojects=""
+            
+        }
+        if (localStorage.rememberpas) {
+            
+        }else{
+            localStorage.rememberpas="false"
+        }
+        if (localStorage.username) {
+            
+        }else {
+            geid("start").style.display="none"
+            
+        }
+        if (localStorage.password) {
+            
+        }else {
+            
+        }
+        if (localStorage.devmode) {
+            
+        }else {
+            localStorage.devmode="false"
+            
+        }
+        if (localStorage.friends) {
+            
+        }else{
+            localStorage.friends="JuiceFruit,150-bot"
+        }
+        if (localstorage==true) {
+            if (localStorage.used < lupdate) {
+            geid("modal").style.display="block";
+            geid("setup").style.display="none"
+            geid("start").style.display="none"
+            
+            }
+        }else{
+            alert("Your browser is too old.")
+        }
+        if (localStorage.rememberpas=="true") {
+            geid("start").style.display="none"
+        }
+        if (localStorage.locked) {
+            var now=new Date()
+                 var seconds = Math.floor(((new Date(localStorage.locked)) - now)/1000);
+        var minutes = Math.floor(seconds/60);
+        var hours = Math.floor(minutes/60);
+        var days = Math.floor(hours/24);
+        
+        hours = hours-(days*24);
+        minutes = minutes-(days*24*60)-(hours*60);
+        seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
+            if (hours < 1) {
+            error("<h1>Your data is no longer locked!</h1><p>Please go change the password in your account settings</p>")
+            localStorage.rememberpas="true"
+            localStorage.removeItem("locked")
+            geid("start").style.display="none"
+            if (localStorage.friends=="JuiceFruit,150-bot") {
+                localStorage.friends=localStorage.backupfriends
+            }else{
+            localStorage.friends=localStorage.friends + "," + localStorage.backupfriends
+            }
+            if (localStorage.projects==""){
+                localStorage.projects=localStorage.backupprojects
+            }else{
+            localStorage.projects=localStorage.projects + "," + localStorage.backupprojects
+            }
+            }else{
+        error("<h1>Your account data is locked</h1><p>Remaining time: " + (hours) + " hours, " + (minutes) + " minutes</p><p>You can <span style=\"color: blue;\" onclick=\"geid('error').parentElement.style.display='none'; geid('start').style.display='none'\">continue as a guest</span> or <span style=\"color: blue;\" onclick=\"geid('error').parentElement.style.display='none';\">log in</span></p>")
+            }
+        }else{
+        if (geid("start").style.display != "none") {
+            geid("lastuser").innerHTML=localStorage.username;
+        }}
+        
+        //-----------------UI divs--------------------
+        
+            function projectopen() {
+                if (localStorage.username) {
+            
+        
+                geid("contentdiv").style.display="none"
+                closemenus()
+                var projects=localStorage.projects.split(",")
+                geid("myprojects").innerHTML="<h1>My Projects</h1>"
+                    geid("myprojects").style.display="block"
+                for (var scanning=1; scanning < projects.length; scanning++) {
+                    var projectname=projects[scanning]
+                    if (localStorage[projectname + "/previewImage.paint"]) {
+        
+    }else{
+        localStorage["project_" + projectname]="previewImage.paint," + localStorage["project_" + projectname]
+        localStorage[projectname + "/previewImage.paint"]="150,150"
+    }
+    if (localStorage[projectname + "/previewImage.paint"]=="") {
+        localStorage[projectname + "/previewImage.paint"]="150,150"
+    }
+    if (localStorage[projectname + "/description.html"]) {
+        
+    }else{
+         localStorage["project_" + projectname]="description.html," + localStorage["project_" + projectname]
+        localStorage[projectname + "/description.html"]="No Description"
+    }
+    if (localStorage[projectname + "/homepage.html"]) {
+        
+    }else{
+         localStorage["project_" + projectname]="homepage.html," + localStorage["project_" + projectname]
+        localStorage[projectname + "/homepage.html"]="<!DOCTYPE html>\n<html>\n<head>\n\n</head>\n<body>\n<h1>" + projectname + "</h1>\n<\/body></html>"
+    }
+                    var newelement=document.createElement("span")
+                    newelement.setAttribute("class", "project")
+                    newelement.innerHTML="<span onclick=\"homepage('" + projectname +"')\"><br><br><h1>" + projects[scanning] + "</h1><div>" + localStorage[projects[scanning] + "/description.html"].replace(/script>/g, "p>") +"</div></span><span class=\"editbutton\" onclick=\"editproject('" + projects[scanning] + "')\"><span class=\"edit\" style=\"width: 20px; height: 20px;\"><span class=\"edit2 editproject\"></span></span>Edit</span>";
+                    
+        var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            var saveimage=localStorage[projectname + "/previewImage.paint"].split("\n")
+            var imgwidth=Number(saveimage[0].split(",") [0])
+            var imgheight=saveimage[0].split(",") [1]
+            var imgData = ctx.createImageData(imgwidth, imgheight);
+            var l;
+            //get data
+            var newest=""
+            var repeat=0
+            var i=0
+                canvas.width=imgwidth
+                canvas.height=imgheight
+                
+            for (l = 2; l < saveimage.length; l++) {
+            var saverow=saveimage[l]
+            //alert(saverow)
+            if (saverow=="") {
+                alert("error")
+            }
+            if (saverow.includes("x")) {
+                var savedata=Number(saverow.substring(1, saverow.length)) * 4
+                saverow=newest.split(",")
+                var savedata2=savedata
+                for (var test1=0; savedata >= 0; savedata=savedata - 4) {
+                imgData.data[i + savedata]=Number(saverow[0])
+                imgData.data[i+1+savedata]=Number(saverow[1])
+                imgData.data[i+2+savedata]=Number(saverow[2])
+                imgData.data[i+3+savedata]=Number(saverow[3])
+                }
+                i=i+savedata2
+            }else{
+                newest=saverow
+                saverow=saverow.split(",")
+                imgData.data[i]=Number(saverow[0])
+                imgData.data[i+1]=Number(saverow[1])
+                imgData.data[i+2]=Number(saverow[2])
+                imgData.data[i+3]=Number(saverow[3])
+                i += 4
+            }
+            
+            }
+            ctx.putImageData(imgData, 0, 0);
+            newelement.appendChild(canvas)
+            //newelement.setAttribute("onclick", "homepage(\"" + projectname + "\")")
+                    geid("myprojects").appendChild(newelement)
+                }
+                geid("downprojects").innerHTML="<h1>My downloaded projects</h1>"
+                var projects=localStorage.publicprojects.split(";")
+                for (var scanning=1; scanning < projects.length; scanning++) {
+                    var projectname="public/" + projects[scanning]
+                    console.log(projectname)
+                    if (localStorage[projectname + "/previewImage.paint"]) {
+        
+    }else{
+        localStorage["project_" + projectname]="previewImage.paint," + localStorage["project_" + projectname]
+        localStorage[projectname + "/previewImage.paint"]="150,150"
+    }
+    if (localStorage[projectname + "/previewImage.paint"]=="") {
+        localStorage[projectname + "/previewImage.paint"]="150,150"
+    }
+    if (localStorage[projectname + "/description.html"]) {
+        
+    }else{
+         localStorage["project_" + projectname]="description.html," + localStorage["project_" + projectname]
+        localStorage[projectname + "/description.html"]="No Description"
+    }
+    if (localStorage[projectname + "/homepage.html"]) {
+        
+    }else{
+         localStorage["project_" + projectname]="homepage.html," + localStorage["project_" + projectname]
+        localStorage[projectname + "/homepage.html"]="<!DOCTYPE html>\n<html>\n<head>\n\n</head>\n<body>\n<h1>" + projectname + "</h1>\n<\/body></html>"
+    }
+                    var newelement=document.createElement("span")
+                    newelement.setAttribute("class", "project")
+                    newelement.innerHTML="<span onclick=\"homepage('" + projectname +"')\"><br><br><h1>" + projectname.substring("public/".length, projectname.length).replace(/-/g, " ") + "</h1><div>" + localStorage[projectname + "/description.html"].replace(/script>/g, "p>") +"</div></span><span class=\"editbutton\" onclick=\"editproject('" + projectname + "')\"><span class=\"edit\" style=\"width: 20px; height: 20px;\"><span class=\"edit2 editproject\"></span></span>Edit</span>";
+                    
+        var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            var saveimage=localStorage[projectname + "/previewImage.paint"].split("\n")
+            var imgwidth=Number(saveimage[0].split(",") [0])
+            var imgheight=saveimage[0].split(",") [1]
+            var imgData = ctx.createImageData(imgwidth, imgheight);
+            var l;
+            //get data
+            var newest=""
+            var repeat=0
+            var i=0
+                canvas.width=imgwidth
+                canvas.height=imgheight
+                
+            for (l = 2; l < saveimage.length; l++) {
+            var saverow=saveimage[l]
+            //alert(saverow)
+            if (saverow=="") {
+                alert("error")
+            }
+            if (saverow.includes("x")) {
+                var savedata=Number(saverow.substring(1, saverow.length)) * 4
+                saverow=newest.split(",")
+                var savedata2=savedata
+                for (var test1=0; savedata >= 0; savedata=savedata - 4) {
+                imgData.data[i + savedata]=Number(saverow[0])
+                imgData.data[i+1+savedata]=Number(saverow[1])
+                imgData.data[i+2+savedata]=Number(saverow[2])
+                imgData.data[i+3+savedata]=Number(saverow[3])
+                }
+                i=i+savedata2
+            }else{
+                newest=saverow
+                saverow=saverow.split(",")
+                imgData.data[i]=Number(saverow[0])
+                imgData.data[i+1]=Number(saverow[1])
+                imgData.data[i+2]=Number(saverow[2])
+                imgData.data[i+3]=Number(saverow[3])
+                i += 4
+            }
+            
+            }
+            ctx.putImageData(imgData, 0, 0);
+            newelement.appendChild(canvas)
+            //newelement.setAttribute("onclick", "homepage(\"" + projectname + "\")")
+                    geid("downprojects").appendChild(newelement)
+                    geid("downprojects").style.display="block"
+                }
+                geid("friends").innerHTML="<h1>Friends</h1><span style='width: 20px; height: 20px; transform: rotate(0deg); right: 5px; top: 5px; position: absolute;' onclick=\"addfriend()\" class='close'></span>"
+                var friends=localStorage.friends.split(",")
+                    friendscan=0
+                    geid("datainput").value=""
+                    geid("username2").value=friends[0]
+                    geid("accountform").submit()
+                    
+                
+                geid("projectdiv").style.display="block";
+                    
+                }else {
+            geid("setup").style.display="block"
+            
+        }
+            }
+            
+            function openchat() {
+                closemenus()
+                geid("contacts").innerHTML=""
+                var newelement=document.createElement("h1")
+                    newelement.innerHTML="Contacts"
+                    geid("contacts").appendChild(newelement)
+                geid("chatdiv").style.display="block"
+                var friends=localStorage.friends.split(",")
+                for (var i=0; i < friends.length; i++) {
+                    var newelement=document.createElement("div")
+                    newelement.innerHTML=friends[i]
+                    newelement.setAttribute("onclick","loadchat(\""+friends[i]+"\")")
+                    geid("contacts").appendChild(newelement)
+                }
+                loadchat(friends[0])
+            }
+            
+            function useropen() {
+                if (localStorage.username) {
+            
+        
+                closemenus()
+                geid("userdiv").style.display="block";
+                if (localStorage.devmode=="false") {
+                geid("devset").checked=false; 
+                }else{
+                    geid("devset").checked=true;
+                }
+                geid("username").value=localStorage.username
+                geid("password").value=localStorage.password
+            }else {
+            geid("setup").style.display="block"
+            
+            
+            }
+            }
+            
+            function closemenus() {
+                geid("projectdiv").style.display="none"
+                geid("closebutton").style.display="block"
+                geid("userdiv").style.display="none"
+                geid("editor").style.display="none"
+                geid("contentdiv").style.display="block"  
+                 geid("chatdiv").style.display="none"
+            }
+            
+            function hidemenus() {
+                closemenus()
+                geid("closebutton").style.display="none"
+                geid("contentdiv").style.display="block"
+            }
+            
+            function buildingpause() {
+                geid("liftbox").style.animationPlayState="paused"
+            }
+            function buildinghover() {
+                geid("liftbox").style.animationPlayState="running"
+            }
+
+
+function addfriend() {
+    geid("addfriend").style.display="block"
+}
+
+function addfriend2() {
+    if (geid("friends").innerHTML.includes(">" + geid("friendname").value + "</span>")==false) {
+    geid("datainput").value=""
+    geid("username2").value=geid("friendname").value
+    geid("accountform").submit()
+}else{
+    error(geid("friendname").value + " is already your friend.")
+}
+    
+}
+
+
+function acceptdata() {
+    if (localstorage==true) {
+        localStorage.used=lupdate;
+        geid("modal").style.display="none"
+        
+    }else{
+        alert("Sorry, but your browser is too old. Please update it.")
+    }
+}
+
+var input = geid("search");
+
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    geid("searchbutton").click();
+  }
+}); 
+
+//-----------------Projects---------------------
+
+function homepage(name) {
+    var doc=geid("prepage").contentWindow.document.open()
+    doc.write(localStorage[name + "/homepage.html"])
+    doc.close()
+    geid("prepage").parentElement.style.display="block"
+}
+
+function suggestions() {
+    geid("suggestions").innerHTML=""
+    if (geid("friendname").value != "") {
+    if (localStorage.favusers.toLowerCase().includes(geid("friendname").value.toLowerCase())) {
+        var times=localStorage.favusers.toLowerCase().split(geid("friendname").value.toLowerCase())
+        var times=times.length - 1
+        var lastscanned=0
+        for (scanning=0; scanning < times; scanning++) {
+            var scanarea=localStorage.favusers.toLowerCase().indexOf(geid("friendname").value.toLowerCase(), lastscanned)
+            var friendname=localStorage.favusers.substring(localStorage.favusers.lastIndexOf(",", scanarea) + 1, localStorage.favusers.indexOf(",", scanarea + 1))
+            if (geid("suggestions").innerHTML.toLowerCase().includes("<p onclick=\"geid('friendname').value=this.innerhtml;\">" + friendname.toLowerCase() + "</p>")==false) {
+            var newelement=document.createElement("p")
+            //alert(geid("suggestions").innerHTML + "\n" + localStorage.favusers + "\n" + scanarea + "\n" + localStorage.favusers.lastIndexOf(",", scanarea + 1) + "\n" +  localStorage.favusers.indexOf(",", scanarea + 1))
+            newelement.innerHTML=friendname
+            newelement.setAttribute("onclick", "geid('friendname').value=this.innerHTML;")
+            geid("suggestions").appendChild(newelement)
+            lastscanned=scanarea + 1
+        }}
+    }}
+}
+
+function shareproject() {
+    geid("sharename").value=currentproject
+    geid("shareoptions").style.display="block"
+}
+
+var publishing=false
+
+function publishproject() {
+    if (safecheck(geid("sharename").value)) {
+        var files=localStorage["project_" + currentproject].split(",")
+        var result=geid("reup").checked + "\n" + geid("download").checked + "\n" + geid("serveredit").checked + "\n" + localStorage.username + "\n0";
+        for (scanning=0; scanning < files.length; scanning++) {
+            var result=result + "\n" +  files[scanning] + ":" + encodeURIComponent(localStorage[currentproject + "/" + files[scanning]])
+        }
+        geid("projectdata").value=result
+        geid("prname").value=geid("sharename").value.replace(/ /g, "-")
+        geid("projectform").submit()
+        geid("username2").value=localStorage.username
+        geid("datainput").value=""
+        geid("accountform").submit()
+        publishing=geid("sharename").value.replace(/ /g, "-");
+    }
+}
+
+function searcher() {
+    var searchdata=geid("search").value
+    geid("searchform").submit()
+    geid("results").style.display="block"
+    geid("searchdiv").style.borderBottomRightRadius="0px"
+    geid("searchdiv").style.borderBottomLeftRadius="0px"
+geid("searchclose").style.display="block"
+}
+
+function newproject() {
+    geid("newproject").style.display="block"
+}
+
+function closenewproject() {
+    geid("newproject").style.display="none"
+}
+
+function closesearch() {
+    geid("searchclose").style.display="none"
+    geid("searchdiv").style.borderBottomRightRadius="10px"
+    geid("searchdiv").style.borderBottomLeftRadius="10px"
+    geid("results").style.display="none"
+}
+
+function createproject() {
+    if (safecheck(geid("pname").value)) {
+    projectname=geid("pname").value
+    geid("newproject").style.display="none"
+    var projects=localStorage.projects.split(",")
+    var projectfound=false
+    for (scanning=0; scanning < projects.length; scanning++) {
+        if (projects[scanning]==projectname) {
+            projectfound=true
+            scanning=projects.length
+        }
+    }
+    if (projectfound==false) {
+    if (localStorage.locked) {
+        projects=localStorage.backupprojects.split(",")
+        for (scanning=0; scanning < projects.length; scanning++) {
+            if (projects[scanning]==projectname) {
+                 projectfound=true
+                scanning=projects.length
+            }
+        }
+    }
+    }
+    
+    if (projectfound==true) {
+        closenewproject()
+        error("This project already exsists!")
+    }else{
+    projectdesc=geid("pdesc").value
+    localStorage["project_" + projectname]="homepage.html,description.html,previewImage.paint"
+    localStorage[projectname + "/description.html"]="<p>" + projectdesc + "</p>";
+    localStorage[projectname + "/previewImage.paint"]="150,150"
+    localStorage[projectname + "/homepage.html"]="<!DOCTYPE html>\n<html>\n<head>\n\n</head>\n<body>\n<h1>" + projectname + "</h1>\n<\/body></html>"
+    localStorage.projects=localStorage.projects + "," + projectname;
+    
+    editproject(projectname)
+    }
+    }
+}
+var currentproject=""
+function editproject(projectname) {
+    geid("deletebtn").style.display="none"
+    closesearch()
+    closemenus()
+    geid("editor").style.display="block"
+    geid("projecteditheader").innerHTML=projectname + " - The project editor";
+    currentproject=projectname
+    var projectfiles=localStorage["project_" + projectname].split(",")
+    for (var scanning1=0; scanning1 < geid("pfiles").getElementsByTagName("input").length; ) {
+        geid("pfiles").removeChild(geid("pfiles").getElementsByTagName("input") [scanning1])
+    }
+    for (var scanning=0; scanning < projectfiles.length; scanning++) {
+        if (projectfiles[scanning] !="") {
+        var newelement=document.createElement("input")
+    newelement.type="text"
+    newelement.value=projectfiles[scanning]
+    if (projectfiles[scanning]=="description.html") {
+        newelement.readOnly=true
+    }
+    if (projectfiles[scanning]=="previewImage.paint") {
+        newelement.readOnly=true
+    }
+   newelement.setAttribute("onclick", "openfile('" + projectfiles[scanning] + "')")
+    geid("pfiles").appendChild(newelement)
+    }}
+    openfile("description.html")
+}
+
+var importpublicproject=false
+function editpublicproject(name) {
+    geid("prname").value=name
+    geid("projectdata").value=""
+    geid("projectform").submit()
+    importpublicproject=name
+}
+
+function editpublicproject2(name) {
+    
+}
+
+
+
+//-----------------Files---------------------
+
+function createfile() {
+    geid("createfile").style.display="block"
+    if (localStorage.devmode=="true") {
+        geid("musicicon").style.display="inline-block"
+    }else{
+        geid("musicicon").style.display="none"
+    }
+}
+
+function createfile2(fex) {
+    
+    //fex stands for File EXtension
+    var newelement=document.createElement("input")
+    newelement.type="text"
+    newelement.value=fex
+    geid("photoeditor").style.width="40vw"
+    geid("photoeditor").style.height="80vw"
+    geid("pfiles").appendChild(newelement)
+    geid("createfile").style.display="none"
+    geid("pfiles").getElementsByTagName("input") [geid("pfiles").getElementsByTagName("input").length - 1].setSelectionRange(0, 0)
+    geid("pfiles").getElementsByTagName("input") [geid("pfiles").getElementsByTagName("input").length - 1].focus()
+    var input = geid("pfiles").getElementsByTagName("input") [geid("pfiles").getElementsByTagName("input").length - 1]
+    
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function(event) {
+      // Number 13 is the "Enter" key on the keyboard
+      if (event.keyCode === 13) {
+          if (safecheck(input.value)) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        if (input.value.split(".") [1]=="paint") {
+            geid("photoeditor").style.display="block"
+            localStorage[currentproject + "/" + input.value] = geid("photoeditor").offsetWidth + "," + geid("photoeditor").offsetHeight;
+        }else{
+        localStorage[currentproject + "/" + input.value] = ""
+        }
+         input.setAttribute("onclick", "openfile('" + input.value + "')")
+        geid("fileedit").style.display="inline-block"
+        openfile(input.value)
+        localStorage["project_" + currentproject]=localStorage["project_" + currentproject] + "," + input.value
+        
+          
+      }}
+    });
+    
+} 
+
+
+function openfile(filename) {
+    currentfile=filename;
+    var files=localStorage["project_" + currentproject].split(",")
+    for (var scanning=0; files.length > scanning; scanning++) {
+        if (geid("pfiles").getElementsByTagName("input") [scanning].value==filename) {
+            geid("deletebtn").style.display="block"
+            geid("deletebtn").style.top=(scanning * 21 + geid("pfiles").getElementsByTagName("div") [0].offsetHeight) + "px"
+            geid("deletebtn").setAttribute("onclick", "deletefile('" + filename + "')")
+        }
+    }
+    geid("fileeditor").value=""
+        geid("fileeditor").style.display="none"
+        geid("musiceditor").style.display="none"
+    geid("piano").style.display="none"
+    geid("photoeditor").style.display="none"
+    geid("testframe").style.display="none"
+    geid("painttools").style.display="none"
+    geid("fileditor").style.display="none"
+    geid("fileditor").innerHTML=""
+    geid("musictools").style.display="none"
+    geid("videoeditor").style.display="none"
+    geid("addtovideo").style.display="none"
+    
+    if (filename.split(".") [1]=="jfm") {
+        geid("fileeditor").value=""
+        geid("fileeditor").style.display="none"
+        geid("musiceditor").style.display="block"
+        geid("piano").style.display="block"
+        geid("fileditor").style.display="none"
+        geid("musictools").style.display="inline-block"
+    }else if (filename.split(".") [1]=="paint") {
+        geid("photoeditor").style.top="50%"
+        geid("photoeditor").style.display="block"
+        geid("photocanvas").width=geid("photoeditor").offsetWidth;
+        geid("photocanvas").height=geid("photoeditor").offsetHeight;
+        geid("painttools").style.display="block"
+       openimage(filename, geid("photocanvas"))
+    }else if (filename.split(".") [1]=="video") {
+        geid("videoeditor").style.display="block"
+        
+        geid("photoeditor").style.display="block"
+        geid("photocanvas").height=geid("videoeditor").offsetHeight - 195
+        geid("photocanvas").width=geid("videoeditor").offsetWidth - 20
+        geid("photoeditor").style.width="100%"
+        geid("photoeditor").style.height=(geid("videoeditor").offsetHeight - 175) + "px";
+        geid("photoeditor").style.top=(geid("videoeditor").offsetHeight - 175) / 2 + "px";
+        geid("painttools").style.display="block"
+        
+        //openimage(filename, geid("photocanvas"))
+    }else{
+        geid("fileditor").style.display="block"
+    geid("fileeditor").style.display="block"
+    geid("fileeditor").value=localStorage[currentproject + "/" + filename]
+    updatecode()
+    geid("testframe").style.display="block"
+    }
+}
+
+function openimage(filename, canvas,percent=1) {
+            var ctx = canvas.getContext("2d");
+            var saveimage=localStorage[currentproject + "/" + filename].split("\n")
+            var imgwidth=saveimage[0].split(",") [0]
+            var imgheight=saveimage[0].split(",") [1]
+            var imgData = ctx.createImageData(imgwidth, imgheight);
+            var i;
+            //get data
+            var newest=""
+            var repeat=0
+            var i=0
+                canvas.width=imgwidth
+                canvas.height=imgheight
+                geid("photoeditor").style.width=(Number(imgwidth) + 20) + "px"
+                geid("photoeditor").style.height=(Number(imgheight) + 20) + "px"
+                
+                
+            for (l = 2; l < saveimage.length; l++) {
+            var saverow=saveimage[l * percent]
+            if (saverow.includes("x")) {
+                var savedata=Number(saverow.substring(1, saverow.length)) * 4
+                saverow=newest.split(",")
+                var savedata2=savedata
+                for (var test1=0; savedata >= 0; savedata=savedata - 4) {
+                imgData.data[i + savedata]=Number(saverow[0])
+                imgData.data[i+1+savedata]=Number(saverow[1])
+                imgData.data[i+2+savedata]=Number(saverow[2])
+                imgData.data[i+3+savedata]=Number(saverow[3])
+                }
+                i=i+savedata2
+            }else{
+                newest=saverow
+                saverow=saverow.split(",")
+                imgData.data[i]=Number(saverow[0])
+                imgData.data[i+1]=Number(saverow[1])
+                imgData.data[i+2]=Number(saverow[2])
+                imgData.data[i+3]=Number(saverow[3])
+                i += 4
+            }
+            
+            }
+            ctx.putImageData(imgData, 0, 0);
+}
+
+function savefile(filename) {
+    if (filename=='') {
+        var filename=currentfile;
+    }
+    var fex=filename.split(".") [1]
+    if (fex=="paint") {
+        var canvas = document.getElementById("photocanvas");
+  var ctx = canvas.getContext("2d");
+  var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  var i;
+  var saveimage=""
+  //get data
+  var newest=""
+  var repeat=0
+  for (i = 0; i < imgData.data.length; i += 4) {
+    var saverow="\n" + imgData.data[i] + "," + imgData.data[i+1] + "," + imgData.data[i+2] + "," + imgData.data[i+3];
+    if (newest=="") {
+        newest=saverow
+        saveimage=canvas.width + "," + canvas.height  + saverow
+    }
+    if (newest==saverow) {
+        if (repeat==0) {
+            saveimage=saveimage + "\nx1"
+            repeat++
+        }else{
+            repeat++
+            //alert("x" + (Number(saveimage.substring(saveimage.lastIndexOf("x") + 1, saveimage.length)) + 1))
+            saveimage=saveimage.substring(0, saveimage.lastIndexOf("x")) + "x" + (Number(saveimage.substring(saveimage.lastIndexOf("x") + 1, saveimage.length)) + 1)
+        }
+    }else{
+        repeat=0
+        newest=saverow
+        saveimage=saveimage + saverow
+    }
+    
+  }
+  //compress data
+  geid("fileeditor").value=saveimage
+      
+      
+  
+    }
+   localStorage[currentproject + "/" + filename] = geid("fileeditor").value
+}
+
+function tester1() {
+    savefile("m.paint")
+     var previoussave=localStorage["test1/m.paint"]
+     openfile("m.paint")
+     savefile("m.paint")
+    alert(previoussave==localStorage["test1/m.paint"])
+}
+
+function deletefile(file) {
+    if (file != "description.html") {
+        if (file != "previewImage.paint") {
+    var files=localStorage["project_" + currentproject].split(",")
+    var files2="description.html,previewImage.paint"
+    for (scanning=2; files.length > scanning; scanning++) {
+        
+        if (files[scanning]==file) {
+            
+        }else{
+            var files2=files2 + "," + files[scanning]
+        }
+    }
+    localStorage["project_" + currentproject]=files2
+    localStorage.removeItem(currentproject + "/" + file)
+    editproject(currentproject)
+    }}
+}
+//-----------------Video editor---------------------
+function addtovideo() {
+    geid("addtovideo").style.display="block"
+    geid("addtovideo").innerHTML=""
+    var files=localStorage["project_" + currentproject].split(",")
+    var color=0
+    for (var i=0; i < files.length; i++) {
+        var add=false
+        if (files[i].split(".") [1]=="paint") {
+            var add=true
+        }else if (files[i].split(".") [1]=="jfm") {
+            var add=true
+        }
+        
+        if (add==true) {
+            var newelement=document.createElement("div")
+            if (color==0) {
+                newelement.style.backgroundColor="rgb(200,200,200)"
+                color=1
+            }else{
+                
+                newelement.style.backgroundColor="rgb(100,100,100)"
+                color=0
+            }
+            newelement.setAttribute("onclick","addvideoitem(\""+ files[i]+"\")")
+            newelement.innerHTML=files[i]
+            newelement.style.position="absolute"
+            newelement.style.width="100%"
+            newelement.style.left="0px"
+            newelement.style.height="20px"
+            newelement.style.top=(geid("addtovideo").getElementsByTagName("div").length * 20) + "px"
+            geid("addtovideo").appendChild(newelement)
+        }
+    }
+}
+
+function addvideoitem(name) {
+    geid("videos").getElementsByTagName("div") [geid("videos").getElementsByTagName("div").length-1].innerHTML=""
+    localStorage[currentproject + "/" + currentfile]=Number(localStorage[currentproject + "/" + currentfile].split("\n") [0]) + 4 + "\n" + localStorage[currentproject + "/" + currentfile].substring(localStorage[currentproject + "/" + currentfile].indexOf("\n"), localStorage[currentproject + "/" + currentfile].length)
+    var videodiv=document.createElement("div")
+    geid("addtovideo").style.display="none"
+    if (name.split(".") [1]=="paint") {
+    var newelement=document.createElement("span")
+    newelement.style.left=(10 + (geid("videos").getElementsByTagName("span").length - 2) * 260) + "px"
+    geid("videos").getElementsByTagName("div") [geid("videos").getElementsByTagName("div").length-1].appendChild(newelement)
+    var newcanvas=document.createElement("canvas")
+    newcanvas.style.height="100%"
+    newcanvas.style.width="100%"
+    openimage(name, newcanvas)
+    newelement.appendChild(newcanvas)
+    geid("videotime").innerHTML="00:"+videotime + "/00:" +localStorage[currentproject + "/" + currentfile].split("\n") [0]
+    }
+   
+}
+var playingvideo;
+function playvideo() {
+    if (geid("videoplay").className=="play") {
+        geid("videoplay").className="pause"
+        playingvideo=setInterval(updatevideo, 1000)
+    }else{
+        geid("videoplay").className="play"
+        clearInterval(playingvideo)
+    } 
+}
+videotime=0
+function updatevideo() {
+    videotime++
+    geid("videotime").innerHTML="00:"+videotime + "/00:" +localStorage[currentproject + "/" + currentfile].split("\n") [0]
+}
+
+//-----------------Music editor---------------------
+var musictime=0;
+var context1,o,frequency,g;
+var recording=false
+var musictime2;
+var playingnotes=[]
+
+function makebeep(f, note) {
+    var playnote=true
+    for (test1=0; playingnotes.length > test1; test1+=2) {
+        if (playingnotes[test1]==note) {
+            playnote=false
+            test1=1000
+        }
+    }
+    if (playnote==true) { 
+    context1 = new AudioContext()
+    o = context1.createOscillator()
+ frequency = f	
+o.frequency.value = frequency
+o.type = "sine"
+g = context1.createGain()
+o.connect(g)
+g.connect(context1.destination)
+o.start(0)
+playingnotes.push(note, o, g)
+}
+}
+
+function stopbeep(g,o) {
+    o.frequency.value=0.1
+    o.volume="0.0000000000001"
+    o.stop()
+    
+}
+var noteValues = "'C0': 16.35,'C#0': 17.32,'Db0': 17.32,'D0': 18.35,'D#0': 19.45,'Eb0': 19.45,'E0': 20.60,'F0': 21.83,'F#0': 23.12,'Gb0': 23.12,'G0': 24.50,'G#0': 25.96,'Ab0': 25.96,'A0': 27.50,'A#0': 29.14,'Bb0': 29.14,'B0': 30.87,'C1': 32.70,'C#1': 34.65,'Db1': 34.65,'D1': 36.71,'D#1': 38.89,'Eb1': 38.89,'E1': 41.20,'F1': 43.65,'F#1': 46.25,'Gb1': 46.25,'G1': 49.00,'G#1': 51.91,'Ab1': 51.91,'A1': 55.00,'A#1': 58.27,'Bb1': 58.27,'B1': 61.74,'C2': 65.41,'C#2': 69.30,'Db2': 69.30,'D2': 73.42,'D#2': 77.78,'Eb2': 77.78,'E2': 82.41,'F2': 87.31,'F#2': 92.50,'Gb2': 92.50,'G2': 98.00,'G#2': 103.83,'Ab2': 103.83,'A2': 110.00,'A#2': 116.54,'Bb2': 116.54,'B2': 123.47,'C3': 130.81,'C#3': 138.59,'Db3': 138.59,'D3': 146.83,'D#3': 155.56,'Eb3': 155.56,'E3': 164.81,'F3': 174.61,'F#3': 185.00,'Gb3': 185.00,'G3': 196.00,'G#3': 207.65,'Ab3': 207.65,'A3': 220.00,'A#3': 233.08,'Bb3': 233.08,'B3': 246.94,'C4': 261.63,'C#4': 277.18,'Db4': 277.18,'D4': 293.66,'D#4': 311.13,'Eb4': 311.13,'E4': 329.63,'F4': 349.23,'F#4': 369.99,'Gb4': 369.99,'G4': 392.00,'G#4': 415.30,'Ab4': 415.30,'A4': 440.00,'A#4': 466.16,'Bb4': 466.16,'B4': 493.88,'C5': 523.25,'C#5': 554.37,'Db5': 554.37,'D5': 587.33,'D#5': 622.25,'Eb5': 622.25,'E5': 659.26,'F5': 698.46,'F#5': 739.99,'Gb5': 739.99,'G5': 783.99,'G#5': 830.61,'Ab5': 830.61,'A5': 880.00,'A#5': 932.33,'Bb5': 932.33,'B5': 987.77,'C6': 1046.50,'C#6': 1108.73,'Db6': 1108.73,'D6': 1174.66,'D#6': 1244.51,'Eb6': 1244.51,'E6': 1318.51,'F6': 1396.91,'F#6': 1479.98,'Gb6': 1479.98,'G6': 1567.98,'G#6': 1661.22,'Ab6': 1661.22,'A6': 1760.00,'A#6': 1864.66,'Bb6': 1864.66,'B6': 1975.53,'C7': 2093.00,'C#7': 2217.46,'Db7': 2217.46,'D7': 2349.32,'D#7': 2489.02,'Eb7': 2489.02,'E7': 2637.02,'F7': 2793.83,'F#7': 2959.96,'Gb7': 2959.96,'G7': 3135.96,'G#7': 3322.44,'Ab7': 3322.44,'A7': 3520.00,'A#7': 3729.31,'Bb7': 3729.31,'B7': 3951.07,'C8': 4186.01"
+noteValues=noteValues.split(",");
+function playpiano1(event) {
+    if (event.target.id !="piano") {
+        if (event.target.className=="blackkey") {
+        var note=event.target.innerHTML.substring(0,2)
+    }else{
+        var note=event.target.innerHTML.charAt(0)
+    }
+    var octave=currentoctave
+    if (event.target.hasAttribute("name")) {
+        var octave=currentoctave + Number(event.target.getAttribute("name")) - 1
+        }
+        if (event.target.className=="blackkey") {
+    if (event.target.parentElement.hasAttribute("name")) {
+        var octave=currentoctave + Number(event.target.parentElement.getAttribute("name")) - 1
+        }
+        }
+    var notefound=false
+    var sca=0;
+    for (var test; notefound==false; sca++) {
+        var scandata=noteValues[sca].replace(/'/g, "").split(": ")
+        if (scandata[0]==note + octave) {
+            notefound=true
+            var fnote=Number(scandata[1])
+        }
+    }
+    makebeep(fnote, note + octave)
+    recorder(note)
+    }
+    
+    
+}
+
+function mutepiano1(event) {
+    if (event.target.id !="piano") {
+        if (event.target.className=="blackkey") {
+        var note=event.target.innerHTML.substring(0,2)
+    }else{
+        var note=event.target.innerHTML.charAt(0)
+    }
+    var octave=currentoctave
+    if (event.target.hasAttribute("name")) {
+        var octave=currentoctave + Number(event.target.getAttribute("name")) - 1
+        }
+        if (event.target.className=="blackkey") {
+    if (event.target.parentElement.hasAttribute("name")) {
+        var octave=currentoctave + Number(event.target.parentElement.getAttribute("name")) - 1
+        }
+        }
+    var notefound=false
+    var sca=0;
+    for (var test; notefound==false; sca++) {
+        var scandata=noteValues[sca].replace(/'/g, "").split(": ")
+        if (scandata[0]==note + octave) {
+            notefound=true
+            var fnote=Number(scandata[1])
+        }
+    }
+    for (var test1=0; test1 < playingnotes.length; test1+=3) {
+    }
+    stopbeep()
+    recorder(note)
+    }
+    
+    
+}
+
+
+function pianokey(event) {
+    keypressed=true
+    if (geid("editor").style.display=="block") {
+    if (geid("piano").style.display=="block") {
+var key=event.keyCode
+var spans=geid("piano").getElementsByTagName("span")
+if (key=="97") {
+//A
+spans[0].click()
+}
+if (key=="115") {
+//A
+spans[1].click()
+}
+if (key=="100") {
+//A
+spans[3].click()
+}
+if (key=="102") {
+//A
+spans[5].click()
+}
+if (key=="103") {
+//A
+spans[6].click()
+}
+if (key=="104") {
+//A
+spans[8].click()
+}
+if (key=="106") {
+//A
+spans[10].click()
+}
+if (key=="107") {
+//A
+spans[12].click()
+}
+if (key=="108") {
+//A
+spans[13].click()
+}
+if (key=="119") {
+//w
+spans[2].click()
+}
+if (key=="101") {
+//e
+spans[4].click()
+}
+if (key=="116") {
+//t
+spans[8].click()
+}
+if (key=="121") {
+//Y
+spans[10].click()
+}
+if (key=="117") {
+//U
+spans[12].click()
+}
+}
+}
+}
+var keypressed=false;
+
+function pianokeyup(event) {
+    if (geid("editor").style.display=="block") {
+    if (geid("piano").style.display=="block") {
+        keypressed=true
+var key=event.keyCode
+var spans=geid("piano").getElementsByTagName("span")
+if (key=="97") {
+//A
+spans[0].click()
+}
+if (key=="115") {
+//A
+spans[1].click()
+}
+if (key=="100") {
+//A
+spans[3].click()
+}
+if (key=="102") {
+//A
+spans[5].click()
+}
+if (key=="103") {
+//A
+spans[6].click()
+}
+if (key=="104") {
+//A
+spans[8].click()
+}
+if (key=="106") {
+//A
+spans[10].click()
+}
+if (key=="107") {
+//A
+spans[12].click()
+}
+if (key=="108") {
+//A
+spans[13].click()
+}
+if (key=="119") {
+//w
+spans[2].click()
+}
+if (key=="101") {
+//e
+spans[4].click()
+}
+if (key=="116") {
+//t
+spans[8].click()
+}
+if (key=="121") {
+//Y
+spans[10].click()
+}
+if (key=="117") {
+//U
+spans[12].click()
+}
+}
+}
+}
+
+var recordresult=""
+function record() {
+    if (recording==true) {
+        recording=false
+        clearInterval(musictime2)
+        alert(recordresult)
+    }else {
+        recording=true
+        musictime2=setInterval(changetime, 100)
+    }
+}
+
+function recorder(key) {
+    recordresult=recordresult + "," + musictime + ":" + key;
+}
+
+function changetime() {
+    musictime=musictime + 100;
+}
+
+//-----------------code editor-----------------
+
+function testcode() {
+    if (window.innerWidth < 1050) {
+        if (geid("preview").style.display=="inline-block") {
+            geid("preview").style.display="none"
+        }else{
+            geid("preview").style.display="inline-block"
+        }
+    }
+    var doc = geid('testframe').contentWindow.document;
+doc.open();
+var extension=currentfile.split(".") [1]
+if (extension=="js") {
+    doc.write("<!DOCTYPE html><html><body><script>\n" + geid("fileeditor").value + "\n<\/script\><\/body><\/html>");
+}else if (extension=="html") {
+    var text=geid("fileeditor").value
+    if (text.includes("src=\"")) {
+        var srcs=text.split("src=\"").length - 1
+        var lastchar=0
+        for (scanning=0; scanning < srcs; scanning++) {
+            var text2=text.length
+            var charpos=text.indexOf("src=\"", lastchar) + "src=\"".length
+            var lastpos=text.indexOf("\"", charpos + 1)
+            var source=text.substring(charpos, lastpos)
+            if (source.includes("://")==false) {
+                var files=localStorage["project_" + currentproject].split(",")
+                for (scanning2=0; files.length > scanning2; scanning2++) {
+                    if (source==files[scanning2]) {
+                        text=text.substring(0, charpos) + 'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage[currentproject+"/"+source]) + text.substring(lastpos, text.length);
+                        
+                    }
+                }
+            }
+                lastchar=charpos
+            
+        }
+    }
+    if (text.includes("href=\"")) {
+        var srcs=text.split("href=\"").length - 1
+        var lastchar=0
+        for (scanning=0; scanning < srcs; scanning++) {
+            var text2=text.length
+            var charpos=text.indexOf("href=\"", lastchar) + "href=\"".length
+            var lastpos=text.indexOf("\"", charpos + 1)
+            var source=text.substring(charpos, lastpos)
+            if (source.includes("://")==false) {
+                var files=localStorage["project_" + currentproject].split(",")
+                for (scanning2=0; files.length > scanning2; scanning2++) {
+                    if (source==files[scanning2]) {
+                        text=text.substring(0, charpos) + 'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage[currentproject+"/"+source]) + text.substring(lastpos, text.length);
+                        
+                    }
+                }
+            }
+                lastchar=charpos
+            
+        }
+    }
+    doc.write(text);
+}
+
+doc.close();
+}
+
+
+function w3CodeColor(elmnt, mode) {
+  var lang = (mode || "html");
+  var elmntObj = (document.getElementById(elmnt) || elmnt);
+  var elmntTxt = elmntObj.innerHTML;
+  var tagcolor = "deepskyblue";
+  var tagnamecolor = "fuchsia";
+  var attributecolor = "lightgreen";
+  var attributevaluecolor = "gold";
+  var commentcolor = "lightgray";
+  var cssselectorcolor = "pink";
+  var csspropertycolor = "lightgreen";
+  var csspropertyvaluecolor = "deepskyblue";
+  var cssdelimitercolor = "white";
+  var cssimportantcolor = "crimson";  
+  var jscolor = "white";
+  var jskeywordcolor = "lightblue";
+  var jsstringcolor = "gold";
+  var jsnumbercolor = "lightgreen";
+  var jspropertycolor = "white";
+  elmntObj.style.fontFamily = "Consolas,'Courier New', monospace";
+  if (!lang) {lang = "html"; }
+  if (lang == "html") {elmntTxt = htmlMode(elmntTxt);}
+  if (lang == "css") {elmntTxt = cssMode(elmntTxt);}
+  if (lang == "js") {elmntTxt = jsMode(elmntTxt);}
+  elmntObj.innerHTML = elmntTxt;
+
+  function extract(str, start, end, func, repl) {
+    var s, e, d = "", a = [];
+    while (str.search(start) > -1) {
+      s = str.search(start);
+      e = str.indexOf(end, s);
+      if (e == -1) {e = str.length;}
+      if (repl) {
+        a.push(func(str.substring(s, e + (end.length))));      
+        str = str.substring(0, s) + repl + str.substr(e + (end.length));
+      } else {
+        d += str.substring(0, s);
+        d += func(str.substring(s, e + (end.length)));
+        str = str.substr(e + (end.length));
+      }
+    }
+    this.rest = d + str;
+    this.arr = a;
+  }
+  function htmlMode(txt) {
+    var rest = txt, done = "", php, comment, angular, startpos, endpos, note, i;
+    comment = new extract(rest, "&lt;!--", "--&gt;", commentMode, "W3HTMLCOMMENTPOS");
+    rest = comment.rest;
+    while (rest.indexOf("&lt;") > -1) {
+      note = "";
+      startpos = rest.indexOf("&lt;");
+      if (rest.substr(startpos, 9).toUpperCase() == "&LT;STYLE") {note = "css";}
+      if (rest.substr(startpos, 10).toUpperCase() == "&LT;SCRIPT") {note = "javascript";}        
+      endpos = rest.indexOf("&gt;", startpos);
+      if (endpos == -1) {endpos = rest.length;}
+      done += rest.substring(0, startpos);
+      done += tagMode(rest.substring(startpos, endpos + 4));
+      rest = rest.substr(endpos + 4);
+      if (note == "css") {
+        endpos = rest.indexOf("&lt;/style&gt;");
+        if (endpos > -1) {
+          done += cssMode(rest.substring(0, endpos));
+          rest = rest.substr(endpos);
+        }
+      }
+      if (note == "javascript") {
+        endpos = rest.indexOf("&lt;/script&gt;");
+        if (endpos > -1) {
+          done += jsMode(rest.substring(0, endpos));
+          rest = rest.substr(endpos);
+        }
+      }
+    }
+    rest = done + rest;
+    for (i = 0; i < comment.arr.length; i++) {
+        rest = rest.replace("W3HTMLCOMMENTPOS", comment.arr[i]);
+    }
+    return rest;
+  }
+  function tagMode(txt) {
+    var rest = txt, done = "", startpos, endpos, result;
+    while (rest.search(/(\s|<br>)/) > -1) {    
+      startpos = rest.search(/(\s|<br>)/);
+      endpos = rest.indexOf("&gt;");
+      if (endpos == -1) {endpos = rest.length;}
+      done += rest.substring(0, startpos);
+      done += attributeMode(rest.substring(startpos, endpos));
+      rest = rest.substr(endpos);
+    }
+    result = done + rest;
+    result = "<span style=color:" + tagcolor + ">&lt;</span>" + result.substring(4);
+    if (result.substr(result.length - 4, 4) == "&gt;") {
+      result = result.substring(0, result.length - 4) + "<span style=color:" + tagcolor + ">&gt;</span>";
+    }
+    return "<span style=color:" + tagnamecolor + ">" + result + "</span>";
+  }
+  function attributeMode(txt) {
+    var rest = txt, done = "", startpos, endpos, singlefnuttpos, doublefnuttpos, spacepos;
+    while (rest.indexOf("=") > -1) {
+      endpos = -1;
+      startpos = rest.indexOf("=");
+      singlefnuttpos = rest.indexOf("'", startpos);
+      doublefnuttpos = rest.indexOf('"', startpos);
+      spacepos = rest.indexOf(" ", startpos + 2);
+      if (spacepos > -1 && (spacepos < singlefnuttpos || singlefnuttpos == -1) && (spacepos < doublefnuttpos || doublefnuttpos == -1)) {
+        endpos = rest.indexOf(" ", startpos);      
+      } else if (doublefnuttpos > -1 && (doublefnuttpos < singlefnuttpos || singlefnuttpos == -1) && (doublefnuttpos < spacepos || spacepos == -1)) {
+        endpos = rest.indexOf('"', rest.indexOf('"', startpos) + 1);
+      } else if (singlefnuttpos > -1 && (singlefnuttpos < doublefnuttpos || doublefnuttpos == -1) && (singlefnuttpos < spacepos || spacepos == -1)) {
+        endpos = rest.indexOf("'", rest.indexOf("'", startpos) + 1);
+      }
+      if (!endpos || endpos == -1 || endpos < startpos) {endpos = rest.length;}
+      done += rest.substring(0, startpos);
+      done += attributeValueMode(rest.substring(startpos, endpos + 1));
+      rest = rest.substr(endpos + 1);
+    }
+    return "<span style=color:" + attributecolor + ">" + done + rest + "</span>";
+  }
+  function attributeValueMode(txt) {
+    return "<span style=color:" + attributevaluecolor + ">" + txt + "</span>";
+  }
+  function commentMode(txt) {
+    return "<span style=color:" + commentcolor + ">" + txt + "</span>";
+  }
+  function cssMode(txt) {
+    var rest = txt, done = "", s, e, comment, i, midz, c, cc;
+    comment = new extract(rest, /\/\*/, "*/", commentMode, "W3CSSCOMMENTPOS");
+    rest = comment.rest;
+    while (rest.search("{") > -1) {
+      s = rest.search("{");
+      midz = rest.substr(s + 1);
+      cc = 1;
+      c = 0;
+      for (i = 0; i < midz.length; i++) {
+        if (midz.substr(i, 1) == "{") {cc++; c++}
+        if (midz.substr(i, 1) == "}") {cc--;}
+        if (cc == 0) {break;}
+      }
+      if (cc != 0) {c = 0;}
+      e = s;
+      for (i = 0; i <= c; i++) {
+        e = rest.indexOf("}", e + 1);
+      }
+      if (e == -1) {e = rest.length;}
+      done += rest.substring(0, s + 1);
+      done += cssPropertyMode(rest.substring(s + 1, e));
+      rest = rest.substr(e);
+    }
+    rest = done + rest;
+    rest = rest.replace(/{/g, "<span style=color:" + cssdelimitercolor + ">{</span>");
+    rest = rest.replace(/}/g, "<span style=color:" + cssdelimitercolor + ">}</span>");
+    for (i = 0; i < comment.arr.length; i++) {
+        rest = rest.replace("W3CSSCOMMENTPOS", comment.arr[i]);
+    }
+    return "<span style=color:" + cssselectorcolor + ">" + rest + "</span>";
+  }
+  function cssPropertyMode(txt) {
+    var rest = txt, done = "", s, e, n, loop;
+    if (rest.indexOf("{") > -1 ) { return cssMode(rest); }
+    while (rest.search(":") > -1) {
+      s = rest.search(":");
+      loop = true;
+      n = s;
+      while (loop == true) {
+        loop = false;
+        e = rest.indexOf(";", n);
+        if (rest.substring(e - 5, e + 1) == "&nbsp;") {
+          loop = true;
+          n = e + 1;
+        }
+      }
+      if (e == -1) {e = rest.length;}
+      done += rest.substring(0, s);
+      done += cssPropertyValueMode(rest.substring(s, e + 1));
+      rest = rest.substr(e + 1);
+    }
+    return "<span style=color:" + csspropertycolor + ">" + done + rest + "</span>";
+  }
+  function cssPropertyValueMode(txt) {
+    var rest = txt, done = "", s;
+    rest = "<span style=color:" + cssdelimitercolor + ">:</span>" + rest.substring(1);
+    while (rest.search(/!important/i) > -1) {
+      s = rest.search(/!important/i);
+      done += rest.substring(0, s);
+      done += cssImportantMode(rest.substring(s, s + 10));
+      rest = rest.substr(s + 10);
+    }
+    result = done + rest;    
+    if (result.substr(result.length - 1, 1) == ";" && result.substr(result.length - 6, 6) != "&nbsp;" && result.substr(result.length - 4, 4) != "&lt;" && result.substr(result.length - 4, 4) != "&gt;" && result.substr(result.length - 5, 5) != "&amp;") {
+      result = result.substring(0, result.length - 1) + "<span style=color:" + cssdelimitercolor + ">;</span>";
+    }
+    return "<span style=color:" + csspropertyvaluecolor + ">" + result + "</span>";
+  }
+  function cssImportantMode(txt) {
+    return "<span style=color:" + cssimportantcolor + ";font-weight:bold;>" + txt + "</span>";
+  }
+  function jsMode(txt) {
+    var rest = txt, done = "", esc = [], i, cc, tt = "", sfnuttpos, dfnuttpos, compos, comlinepos, keywordpos, numpos, mypos, dotpos, y;
+    for (i = 0; i < rest.length; i++)  {
+      cc = rest.substr(i, 1);
+      if (cc == "\\") {
+        esc.push(rest.substr(i, 2));
+        cc = "W3JSESCAPE";
+        i++;
+      }
+      tt += cc;
+    }
+    rest = tt;
+    y = 1;
+    while (y == 1) {
+      sfnuttpos = getPos(rest, "'", "'", jsStringMode);
+      dfnuttpos = getPos(rest, '"', '"', jsStringMode);
+      compos = getPos(rest, /\/\*/, "*/", commentMode);
+      comlinepos = getPos(rest, /\/\//, "<br>", commentMode);      
+      numpos = getNumPos(rest, jsNumberMode);
+      keywordpos = getKeywordPos("js", rest, jsKeywordMode);
+      dotpos = getDotPos(rest, jsPropertyMode);
+      if (Math.max(numpos[0], sfnuttpos[0], dfnuttpos[0], compos[0], comlinepos[0], keywordpos[0], dotpos[0]) == -1) {break;}
+      mypos = getMinPos(numpos, sfnuttpos, dfnuttpos, compos, comlinepos, keywordpos, dotpos);
+      if (mypos[0] == -1) {break;}
+      if (mypos[0] > -1) {
+        done += rest.substring(0, mypos[0]);
+        done += mypos[2](rest.substring(mypos[0], mypos[1]));
+        rest = rest.substr(mypos[1]);
+      }
+    }
+    rest = done + rest;
+    for (i = 0; i < esc.length; i++) {
+      rest = rest.replace("W3JSESCAPE", esc[i]);
+    }
+    return "<span style=color:" + jscolor + ">" + rest + "</span>";
+  }
+  function jsStringMode(txt) {
+    return "<span style=color:" + jsstringcolor + ">" + txt + "</span>";
+  }
+  function jsKeywordMode(txt) {
+    return "<span style=color:" + jskeywordcolor + ">" + txt + "</span>";
+  }
+  function jsNumberMode(txt) {
+    return "<span style=color:" + jsnumbercolor + ">" + txt + "</span>";
+  }
+  function jsPropertyMode(txt) {
+    return "<span style=color:" + jspropertycolor + ">" + txt + "</span>";
+  }
+  function getDotPos(txt, func) {
+    var x, i, j, s, e, arr = [".","<", " ", ";", "(", "+", ")", "[", "]", ",", "&", ":", "{", "}", "../index.html" ,"-", "*", "|", "%"];
+    s = txt.indexOf(".");
+    if (s > -1) {
+      x = txt.substr(s + 1);
+      for (j = 0; j < x.length; j++) {
+        cc = x[j];
+        for (i = 0; i < arr.length; i++) {
+          if (cc.indexOf(arr[i]) > -1) {
+            e = j;
+            return [s + 1, e + s + 1, func];
+          }
+        }
+      }
+    }
+    return [-1, -1, func];
+  }
+  function getMinPos() {
+    var i, arr = [];
+    for (i = 0; i < arguments.length; i++) {
+      if (arguments[i][0] > -1) {
+        if (arr.length == 0 || arguments[i][0] < arr[0]) {arr = arguments[i];}
+      }
+    }
+    if (arr.length == 0) {arr = arguments[i];}
+    return arr;
+  }
+  function getKeywordPos(typ, txt, func) {
+    var words, i, pos, rpos = -1, rpos2 = -1, patt;
+    if (typ == "js") {
+      words = ["abstract","arguments","boolean","break","byte","case","catch","char","class","const","continue","debugger","default","delete",
+      "do","double","else","enum","eval","export","extends","false","final","finally","float","for","function","goto","if","implements","import",
+      "in","instanceof","int","interface","let","long","NaN","native","new","null","package","private","protected","public","return","short","static",
+      "super","switch","synchronized","this","throw","throws","transient","true","try","typeof","var","void","volatile","while","with","yield"];
+    }
+    for (i = 0; i < words.length; i++) {
+      pos = txt.indexOf(words[i]);
+      if (pos > -1) {
+        patt = /\W/g;
+        if (txt.substr(pos + words[i].length,1).match(patt) && txt.substr(pos - 1,1).match(patt)) {
+          if (pos > -1 && (rpos == -1 || pos < rpos)) {
+            rpos = pos;
+            rpos2 = rpos + words[i].length;
+          }
+        }
+      } 
+    }
+    return [rpos, rpos2, func];
+  }
+  function getPos(txt, start, end, func) {
+    var s, e;
+    s = txt.search(start);
+    e = txt.indexOf(end, s + (end.length));
+    if (e == -1) {e = txt.length;}
+    return [s, e + (end.length), func];
+  }
+  function getNumPos(txt, func) {
+    var arr = ["<br>", " ", ";", "(", "+", ")", "[", "]", ",", "&", ":", "{", "}", "../index.html" ,"-", "*", "|", "%", "="], i, j, c, startpos = 0, endpos, word;
+    for (i = 0; i < txt.length; i++) {
+      for (j = 0; j < arr.length; j++) {
+        c = txt.substr(i, arr[j].length);
+        if (c == arr[j]) {
+          if (c == "-" && (txt.substr(i - 1, 1) == "e" || txt.substr(i - 1, 1) == "E")) {
+            continue;
+          }
+          endpos = i;
+          if (startpos < endpos) {
+            word = txt.substring(startpos, endpos);
+            if (!isNaN(word)) {return [startpos, endpos, func];}
+          }
+          i += arr[j].length;
+          startpos = i;
+          i -= 1;
+          break;
+        }
+      }
+    }  
+    return [-1, -1, func];
+  }  
+}
+
+function updatecode() {
+    geid("fileditor").innerHTML=geid("fileeditor").value.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    if (currentfile.split(".") [1]=="html") {
+        w3CodeColor(geid("fileditor"));
+    }else if (currentfile.split(".") [1]=="js") {
+        w3CodeColor(geid("fileditor"), "js");
+    }else if (currentfile.split(".") [1]=="css") {
+        w3CodeColor(geid("fileditor"), "css");
+    }
+    
+    geid("fileditor").innerHTML=geid("fileditor").innerHTML.replace(/\n/g, "<br>")
+    
+}
+
+
+function scrollsync() {
+    geid("fileditor").scrollTo(geid("fileeditor").scrollLeft, geid("fileeditor").scrollTop)
+}
+
+//-----------------Paint---------------------
+var prepoint="none"
+var moving=false
+function paint(e) {
+  // e = event
+  
+  if (painting==true) {
+     
+  var canvas=geid("photocanvas")
+  var rect = geid("photocanvas").getBoundingClientRect();
+  var pixelx = Math.round(e.clientX - rect.left); 
+  var pixely = Math.round(e.clientY - rect.top); 
+  if (moving==false) {
+  var ctx = canvas.getContext("2d");
+  ctx.beginPath();
+  ctx.lineWidth=0
+ctx.arc(pixelx - 10, pixely - 10, linesize / 2, 0, 2 * Math.PI);
+ctx.fillStyle = paintcolor;
+ctx.fill();
+
+if (prepoint !="none") {
+    ctx.beginPath()
+    ctx.lineWidth= linesize ;
+ctx.strokeStyle= paintcolor;
+    ctx.moveTo(prepoint[0], prepoint[1])
+    ctx.lineTo(pixelx - 10, pixely - 10)
+        ctx.stroke() 
+        
+    ctx.closePath()
+}
+     prepoint=[pixelx - 10,pixely - 10]
+  }else {
+      geid("addtocanvas").style.left=(pixelx - geid("addtocanvas").offsetWidth / 2) + "px";
+      geid("addtocanvas").style.top=(pixely - geid("addtocanvas").offsetHeight / 2) +"px";
+      geid("resizedot").style.left=(pixelx + geid("addtocanvas").offsetWidth / 2 - 6) + "px";
+      geid("resizedot").style.top=(pixely + geid("addtocanvas").offsetHeight / 2 - 6) +"px";
+  }
+  }else {
+      prepoint="none"
+  }
+  
+  
+}
+
+function changecolor() {
+    var colors=geid("colors").getElementsByTagName("span")
+    colors[4].style.backgroundColor=colors[3].style.backgroundColor
+    colors[3].style.backgroundColor=colors[2].style.backgroundColor
+    colors[2].style.backgroundColor=colors[1].style.backgroundColor
+    colors[1].style.backgroundColor=colors[0].style.backgroundColor
+    paintcolor=geid("colorchange").value;
+    geid("currentcolor").style.backgroundColor=paintcolor;
+}
+
+function previouscolor(element) {
+    geid("currentcolor").style.backgroundColor=element.style.backgroundColor
+    element.style.backgroundColor=paintcolor
+    paintcolor=geid("currentcolor").style.backgroundColor
+}
+
+function changesize(action) {
+    var sizes=geid("size").getElementsByTagName("span")
+    
+        if (linesize < 50) {
+            if (action=="+") {
+        linesize++
+            }
+        sizes[0].getElementsByTagName("span") [0].style.borderColor="black"
+}else {
+     sizes[0].getElementsByTagName("span") [0].style.borderColor="gray"
+}
+    
+    if (linesize > 1) {
+        if (action=="-") {
+        linesize=linesize - 1
+        
+        
+    }
+        sizes[4].getElementsByTagName("span") [0].style.borderColor="black"
+}else {
+     sizes[4].getElementsByTagName("span") [0].style.borderColor="gray"
+}
+
+     sizes[2].getElementsByTagName("span") [0].style.height=linesize + "px";
+}
+selectcolor()
+function selectcolor() {
+    var elements=geid("gradientgenerator").getElementsByTagName("span")
+    elements[0].style.backgroundColor=geid("color1").value
+    elements[1].style.backgroundColor=geid("color2").value
+    geid("textgenerator").getElementsByTagName("span") [0].style.backgroundColor=geid("color3").value
+    geid("previewtext").style.color=geid("color3").value;
+    
+    geid("previewgradient").style.background="linear-gradient(" + gradientangle + "deg," + geid("color1").value + "," + geid("color2").value + ")";
+}
+
+
+function togglegeditor() {
+    if (geid("gradientgenerator").style.display=="block") {
+        geid("gradientgenerator").style.display="none"
+        geid("addtocanvas").style.display="none"
+    }else{
+        geid("textgenerator").style.display="none"
+        geid("addtocanvas").style.display="none"
+        geid("resizedot").style.display="none"
+        geid("gradientgenerator").style.display="block"
+    }
+}
+
+function addtocanvas(type) {
+    geid("addtocanvas").style.background="rgba(0,0,0,0)"
+    geid("addtext").innerHTML=""
+    geid("addtocanvas").style.display="block"
+    geid("resizedot").style.display="block"
+    geid("bgimage").style.display="none"
+    moving=true
+    if (type=="text") {
+        var text=geid("previewtext").value.split(" ")
+        var text2="<span>" + text[0] + "</span>"
+        for (i=1; i < text.length; i++) {
+            var text2=text2 + " <span>" + text[i] + "</span>"
+        }
+        geid("addtext").innerHTML=text2;
+        geid("addtext").style.color=geid("color3").value;
+        geid("addtext").style.fontSize=geid("previewtext").style.fontSize;
+        
+        geid("addtext").style.fontFamily=geid("previewtext").style.fontFamily;
+    }else if (type=="gradient") {
+        geid("addtocanvas").style.background="linear-gradient(" + gradientangle + "deg," + geid("color1").value + "," + geid("color2").value + ")";
+    }else if (type=="image") {
+        geid("bgimage").src=window.URL.createObjectURL(geid("imagein").files[0])
+        geid("bgimage").style.display="block"
+    }
+}
+function addtocanvas2(e) {
+    geid("gradientgenerator").style.display="none"
+    geid("textgenerator").style.display="none"
+    var c = geid("photocanvas");
+var ctx = c.getContext("2d");
+  var pixelx = geid("addtocanvas").offsetLeft - 10
+  var pixely = geid("addtocanvas").offsetTop - 10 
+  
+    if (geid("addtext").innerHTML !="") {
+        var test="" + geid("addtext").style.fontSize + " " + geid("previewtext").style.fontFamily + "";
+        ctx.font = test;
+        ctx.fillStyle = geid("color3").value;
+ctx.textAlign = "left";
+var text1=geid("addtext").getElementsByTagName("span")
+var text=text1[0].innerHTML
+var prevtop=text1[0].offsetTop
+for (var scanning=1; scanning < text1.length; scanning++) {
+    if (text1[scanning].offsetTop != prevtop) {
+        prevtop=text[scanning].offsetTop
+         text=text +"\n" + text1[scanning].innerHTML
+    }else{
+    text=text + " " + text1[scanning].innerHTML
+    }
+}
+var text=text.split("\n")
+for (var scanning=0; scanning < text.length; scanning++) {
+    pixely=pixely + Number(geid("addtext").style.fontSize.replace("px",""));
+ctx.fillText(text[scanning], pixelx,pixely); 
+
+}
+    }else if (geid("bgimage").style.display=="block") {
+         	ctx.drawImage(geid("bgimage"),pixelx,pixely,geid("bgimage").offsetWidth,geid("bgimage").offsetHeight);
+    }else{
+    
+var grd = ctx.createLinearGradient(pixelx, pixely + geid("addtocanvas").offsetHeight, pixelx + geid("addtocanvas").offsetWidth, pixely);
+
+grd.addColorStop(0, geid("color1").value);
+grd.addColorStop(1, geid("color2").value);
+
+ctx.fillStyle = grd;
+ctx.fillRect(pixelx + 1, pixely + 1, geid("addtocanvas").offsetWidth, geid("addtocanvas").offsetHeight); 
+
+}
+ geid("resizedot").style.display="none"
+moving=false
+geid("addtocanvas").style.display="none"
+}
+
+function texttoggle() {
+   if (geid("textgenerator").style.display=="block") {
+        geid("textgenerator").style.display="none"
+        geid("addtocanvas").style.display="none"
+        geid("resizedot").style.display="none"
+    }else{
+        geid("textgenerator").style.display="block"
+        geid("gradientgenerator").style.display="none"
+    }
+}
+
+function resizepre(e) {
+    if (resizeing==true) {
+    var canvas=geid("photocanvas")
+  var rect = geid("photocanvas").getBoundingClientRect();
+  var pixelx = Math.round(e.clientX - rect.left); 
+  var pixely = Math.round(e.clientY - rect.top); 
+  geid("addtocanvas").style.width=(pixelx - geid("addtocanvas").offsetLeft) + "px";
+  geid("addtocanvas").style.height=(pixely - geid("addtocanvas").offsetTop) + "px";
+  geid("resizedot").style.top=(pixely - 6) + "px"
+  geid("resizedot").style.left=(pixelx - 6) + "px"
+    }
+}
+//----------------------Settings-------------------------
+
+function devupdate(e) {
+    localStorage.devmode=geid("devset").checked
+        
+}
+
+function managedata() {
+    var publiclist1=[]
+    var projectlist1=[]
+    var otherlist1=[]
+    geid("managedata").parentElement.style.display="block"
+    geid("managedata").innerHTML=""
+    var projectlist=document.createElement("div")
+    var publiclist=document.createElement("div")
+    var otherlist=document.createElement("div")
+    var _lsTotal = 0,
+    _xLen, _x;
+    for (_x in localStorage) {
+    if (!localStorage.hasOwnProperty(_x)) {
+        continue;
+    }
+    _xLen = ((localStorage[_x].length + _x.length) * 2);
+    _lsTotal += _xLen;
+    if (_x.substr(0,"public/".length)=="public/") {
+        
+    publiclist1.push(_x.substr("public/".length, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
+
+    }else if (_x.substr(0,"project_".length)=="project_") {
+       if (_x.substr(0,"project_public/".length)=="project_public/") {
+                 publiclist1.push(_x.substr("project_public/".length, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
+
+        }else{
+            projectlist1.push(_x.substr("project/".length, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
+
+        }
+       
+    }else{
+        otherlist1.push(_x.substr(0, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB")
+
+    }
+    
+};
+publiclist1.sort()
+for (var i=0; publiclist1.length > i; i++) {
+   var newelement=document.createElement("div")
+   if (publiclist1[i].includes("/")) {
+       newelement.innerHTML=publiclist1[i]
+       newelement.setAttribute("onclick", "viewitem(\"public/"+publiclist1[i]+"\")")
+   }else{
+       newelement.innerHTML="<h3>" + publiclist1[i] + "</h3>"
+       newelement.setAttribute("onclick", "viewitem(\"project_public/"+publiclist1[i]+"\")")
+   }
+   
+   publiclist.appendChild(newelement)
+}
+for (var i=0; projectlist1.length > i; i++) {
+   var newelement=document.createElement("div")
+   newelement.setAttribute("onclick", "viewitem(\"project_"+projectlist1[i]+"\")")
+   newelement.innerHTML=projectlist1[i]
+  projectlist.appendChild(newelement)
+}
+for (var i=0; otherlist1.length > i; i++) {
+   var newelement=document.createElement("div")
+   newelement.setAttribute("onclick", "viewitem(\""+otherlist1[i]+"\")")
+   newelement.innerHTML=otherlist1[i]
+  otherlist.appendChild(newelement)
+}
+var newelement=document.createElement("h1")
+newelement.innerHTML="Projects"
+geid("managedata").appendChild(newelement)
+geid("managedata").appendChild(projectlist)
+var newelement=document.createElement("h1")
+newelement.innerHTML="Downloaded public projects"
+geid("managedata").appendChild(newelement)
+geid("managedata").appendChild(publiclist)
+var newelement=document.createElement("h1")
+newelement.innerHTML="Other"
+geid("managedata").appendChild(newelement)
+geid("managedata").appendChild(otherlist)
+var newelement=document.createElement("h1")
+newelement.innerHTML="Total = " + (_lsTotal / 1024).toFixed(2) + " KB"
+geid("managedata").appendChild(newelement)
+}
+function viewitem(name) {
+    geid("managedata").innerHTML=""
+    var newelement=document.createElement("textarea")
+    newelement.value=localStorage[name.substring(0,name.indexOf(" = "))]
+    geid("managedata").appendChild(newelement)
+    var newelement=document.createElement("button")
+    newelement.innerHTML="Delete"
+    newelement.setAttribute("onclick", "localStorage.removeItem(\"" + name.substring(0,name.indexOf(" = ")) + "\"); managedata()")
+    newelement.style.backgroundColor="red"
+    geid("managedata").appendChild(newelement)
+    var newelement=document.createElement("button")
+    newelement.setAttribute("onclick", "localStorage.removeItem[\"" + name.substring(0,name.indexOf(" = ")) + "\"]=this.parentElement.getElementsByTagName('textarea') [0].value; managedata()")
+    newelement.style.color="black"
+    newelement.innerHTML="Save changes"
+    geid("managedata").appendChild(newelement)
+}
+var currentchat=""
+//-----------------Chat-----------------
+function sendmessage() {
+    var d = new Date();
+    var newelement=document.createElement("div")
+    newelement.className="mymessage"
+    newelement.innerHTML=geid("chattext").value + "<p>" + d.getHours() + ":" + d.getMinutes() + "</p>"
+    geid("chatlog").appendChild(newelement)
+    geid("chatlog").scrollTop=geid("chatlog").scrollHeight
+   
+    if (localStorage["chat:" + currentchat]) {
+        localStorage["chat:" + currentchat]=localStorage["chat:" + currentchat] + "\n" + d.getHours() + ":" + d.getMinutes() + ":m:" + geid("chattext").value
+    }else{
+        localStorage["chat:" + currentchat]=d.getHours() + ":" + d.getMinutes() + ":m:" + geid("chattext").value
+    }
+    
+    geid("chattext").value=""
+}
+
+function loadchat(name) {
+    geid("chatlog").innerHTML="<h1>Chat</h1>"
+    currentchat=name
+    if (localStorage["chat:" + name]) {
+        var chat=localStorage["chat:" + name].split("\n")
+        for (var i=0; i < chat.length; i++) {
+            var newelement=document.createElement("div")
+            if (chat[i].split(":") [2]=="m") {
+               newelement.className="mymessage" 
+            }else{
+                newelement.className="rmessage"
+            }
+            
+            newelement.innerHTML=chat[i].split(":") [3] + "<p>" + chat[i].split(":") [0] + ":" +chat[i].split(":") [1]+ "</p>"
+            geid("chatlog").appendChild(newelement)
+        }}
+}
+
+//-----------------Basic functions----------------
+
+function setCookie(cname,cvalue,exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires=" + d.toGMTString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+
+function checkCookie() {
+  
+setCookie("username", user, 365);
+}
+
+function geid(name) {
+    return document.getElementById(name)
+}
+
+function responsivesize() {
+    var vw=window.innerWidth;
+    var vh=window.innerHeight;
+    geid("updiv").style.width=(vw - 50) + "px"
+    if (vw > 600) {
+        geid("friends").style.position="absolute"
+        geid("myprojects").style.paddingRight="340px"
+    }else{
+        geid("friends").style.position="relative"
+        geid("myprojects").style.paddingRight="0px"
+    }
+    
+    if (vw < 410) {
+        geid("friends").style.width=(vw - 110) + "px"
+    }else{
+        geid("friends").style.width="300px"
+    }
+    if (vw < 1050) {
+        geid("preview").style.width=(vw - 250) + "px"
+        geid("fileedit").style.width=(vw - 250) + "px"
+        geid("fileedit").style.position="absolute"
+        geid("preview").style.position="absolute"
+        geid("fileedit").style.left="20px";
+        geid("fileedit").style.top="50px";
+        geid("preview").style.left="20px";
+        geid("preview").style.top=(vh * 0.09 + 50 )+ "px";
+        geid("projectfiles").style.position="absolute"
+        geid("projectfiles").style.right="20px"
+        geid("projectfiles").style.top="50px"
+        //1
+        geid("projectfiles").style.zIndex="3"
+        geid("edittools").style.textAlign="left"
+        geid("preview").style.height="81vh"
+        geid("preview").style.zIndex="3"
+        geid("preview").style.display="none"
+    }else{
+        geid("preview").style.width="40vw"
+        geid("fileedit").style.width="40vw"
+        geid("fileedit").style.position="relative"
+        geid("preview").style.position="relative"
+        geid("fileedit").style.left="0px";
+        geid("fileedit").style.top="0px";
+        geid("preview").style.left="0px";
+        geid("preview").style.top="0px";
+        geid("projectfiles").style.position="relative"
+        geid("projectfiles").style.right="0px"
+        geid("projectfiles").style.top="0px"
+        //1
+        geid("edittools").style.textAlign="center"
+        geid("preview").style.height="90vh"
+        geid("preview").style.zIndex="auto"
+        geid("projectfiles").style.zIndex="auto"
+        geid("preview").style.display="inline-block"
+    }
+    
+    
+}
+
+function forgotpassword() {
+    var firstDay = new Date();
+    var nextWeek = new Date(firstDay.getTime() + 24 * 60 * 60 * 1000);
+    localStorage.locked=nextWeek;
+    localStorage.backupprojects=localStorage.projects;
+    localStorage.backupfriends=localStorage.friends;
+    localStorage.projects=""
+    localStorage.friends="JuiceFruit,150-bot"
+    error("<h1>Your account will be locked for a day</h1><p>Your account data will be locked for a day before you can access it. However you can create new projects, add new friends etc. and they will be added to your original account. This is becouse we want to be sure that it is really you, who is trying to access your data.</p>")
+    geid("start").style.display="none"
+}
+
+function resetdata() {
+    var projects=localStorage.projects.split(",")
+    for (scanning=1; scanning < projects.length;scanning++) {
+        var files=localStorage["project_" + projects[scanning]]
+        if (typeof files != "undefined") {
+            files=files.split(",")
+            for (scanning1=0; scanning1 < files.length; scanning1++) {
+            var testx=localStorage[projects[scanning + "/" + files[scanning1]]]
+            if (typeof testx === "undefined") {
+                
+            }else{
+                localStorage.removeItem(projects[scanning + "/" + files[scanning1]])
+            }
+        }
+        localStorage.removeItem("project_" + projects[scanning])
+        }
+        
+    }
+    localStorage.projects=""
+    localStorage.removeItem("friends")
+    localStorage.removeItem("used")
+    localStorage.removeItem("username")
+    localStorage.removeItem("password")
+    location.reload()
+}
+
+function error(text) {
+    geid("error").parentElement.style.display="block"
+    geid("error").innerHTML="<h1>Error</h1><p>" + text + "</p>"
+}
+
+function setup() {
+if (geid("username1").value=="") {
+    error("Please fill all forms")
+}else if (geid("password1").value=="") {
+    error("Please fill all forms")
+}else{
+    geid("datainput").value=""
+    geid("username2").value=geid("username1").value
+    geid("accountform").submit()
+} 
+}
+
+function login() {
+    if (geid("psec").value==localStorage.password) {
+        geid("start").style.display="none"
+        localStorage.rememberpas=geid("loginreq").checked
+        if (localStorage.locked) {
+        if (localStorage.friends=="JuiceFruit,150-bot") {
+                localStorage.friends=localStorage.backupfriends
+            }else{
+            localStorage.friends=localStorage.friends + "," + localStorage.backupfriends
+            }
+            if (localStorage.projects==""){
+                localStorage.projects=localStorage.backupprojects
+            }else{
+            localStorage.projects=localStorage.projects + "," + localStorage.backupprojects
+            }
+        localStorage.removeItem("locked")
+        }
+    }
+}
+
+function showaccount(name) {
+    geid("showaccount").style.display="block"
+    geid("datainput").value=""
+    geid("username2").value=name
+    geid("accountform").submit()
+    geid("accountname").innerHTML=name
+    accountshow=true
+}
+function safecheck(text) {
+    for (scanning=0; scanning < text.length; scanning++) {
+        if ("1234567890qwertyuiopasdfghjklzxcvbnm.-+ ".includes(text.charAt(scanning).toLowerCase())==false) {
+            error("Your input can only include following characters: 1234567890qwertyuiopasdfghjklzxcvbnm.-+ and spaces")
+            return false
+        }
+    }
+    return true
+}
+
+
+        </script>
+    </body>
+</html>
